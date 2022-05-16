@@ -2,24 +2,24 @@ package ua.org.learn.task.restaurant.model;
 
 import ua.org.learn.task.restaurant.constant.StringConstant;
 
-import java.time.Instant;
+import java.sql.Date;
 
 public class User {
     private long id;
-    private Boolean isActive;
+    private boolean isActive;
     private String login;
     private String name;
     private String password;
     private UserRole role;
     private String surname;
     private String updatedBy;
-    private Instant updatedOn;
+    private Date updatedOn;
 
     public long getId() {
         return id;
     }
 
-    public Boolean getActive() {
+    public boolean getActive() {
         return isActive;
     }
 
@@ -47,7 +47,7 @@ public class User {
         return updatedBy;
     }
 
-    public Instant getUpdatedOn() {
+    public Date getUpdatedOn() {
         return updatedOn;
     }
 
@@ -56,7 +56,7 @@ public class User {
         return this;
     }
 
-    public User setActive(Boolean active) {
+    public User setActive(boolean active) {
         isActive = active;
         return this;
     }
@@ -91,7 +91,7 @@ public class User {
         return this;
     }
 
-    public User setUpdatedOn(Instant updatedOn) {
+    public User setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
         return this;
     }
@@ -102,7 +102,7 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format(StringConstant.USER_TO_STRING, id, name, surname, login, password, role, updatedBy, updatedOn, isActive);
+        return String.format(StringConstant.TO_STRING_USER, id, name, surname, login, password, role, updatedBy, updatedOn, isActive);
     }
 
     public static class UserBuilder {
@@ -152,7 +152,7 @@ public class User {
             return this;
         }
 
-        public UserBuilder updatedOn(Instant updatedOn) {
+        public UserBuilder updatedOn(Date updatedOn) {
             user.setUpdatedOn(updatedOn);
             return this;
         }

@@ -32,4 +32,5 @@ public final class DBUtil {
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
     }
+
 }

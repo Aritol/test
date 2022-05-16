@@ -3,162 +3,154 @@ package ua.org.learn.task.restaurant.model;
 import ua.org.learn.task.restaurant.constant.StringConstant;
 
 import java.time.Instant;
+import java.util.Date;
 
 public class Order {
+    private String customer;
+    private Instant dateOn;
+    private String executor;
+    private double gratuity;
     private long id;
-    private Boolean isActive;
-    private String login;
-    private String name;
-    private String password;
-    private UserRole role;
-    private String surname;
+    private State state;
+    private int tableNumber;
     private String updatedBy;
-    private Instant updatedOn;
+    private Date updatedOn;
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public Instant getDateOn() {
+        return dateOn;
+    }
 
     public long getId() {
         return id;
     }
 
-    public Boolean getActive() {
-        return isActive;
+    public int getTableNumber() {
+        return tableNumber;
     }
 
-    public String getName() {
-        return name;
+    public String getExecutor() {
+        return executor;
     }
 
-    public String getLogin() {
-        return login;
+    public State getState() {
+        return state;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public String getSurname() {
-        return surname;
+    public double getGratuity() {
+        return gratuity;
     }
 
     public String getUpdatedBy() {
         return updatedBy;
     }
 
-    public Instant getUpdatedOn() {
+    public Date getUpdatedOn() {
         return updatedOn;
     }
 
-    public Order setId(long id) {
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public void setDateOn(Instant dateOn) {
+        this.dateOn = dateOn;
+    }
+
+    public void setExecutor(String executor) {
+        this.executor = executor;
+    }
+
+    public void setGratuity(double gratuity) {
+        this.gratuity = gratuity;
+    }
+
+    public void setId(long id) {
         this.id = id;
-        return this;
     }
 
-    public Order setActive(Boolean active) {
-        isActive = active;
-        return this;
+    public void setState(State state) {
+        this.state = state;
     }
 
-    public Order setName(String name) {
-        this.name = name;
-        return this;
+    public void setTableNumber(int tableNumber) {
+        this.tableNumber = tableNumber;
     }
 
-    public Order setLogin(String login) {
-        this.login = login;
-        return this;
-    }
-
-    public Order setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public Order setRole(UserRole role) {
-        this.role = role;
-        return this;
-    }
-
-    public Order setSurname(String surname) {
-        this.surname = surname;
-        return this;
-    }
-
-    public Order setUpdatedBy(String updatedBy) {
+    public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
-        return this;
     }
 
-    public Order setUpdatedOn(Instant updatedOn) {
+    public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
-        return this;
     }
 
-    public static UserBuilder builder() {
-        return new UserBuilder();
+    public static OrderBuilder builder() {
+        return new OrderBuilder();
     }
 
     @Override
     public String toString() {
-        return String.format(StringConstant.USER_TO_STRING, id, name, surname, login, password, role, updatedBy, updatedOn, isActive);
+        return String.format(StringConstant.TO_STRING_ORDER, id, customer, dateOn, tableNumber, executor, state, gratuity, updatedBy, updatedOn);
     }
 
-    public static class UserBuilder {
-        private Order user;
+    public static class OrderBuilder {
+        private Order order;
 
-        public UserBuilder() {
-            user = new Order();
+        public OrderBuilder() {
+            order = new Order();
         }
 
-        public UserBuilder id(Long id) {
-            user.setId(id);
+        public OrderBuilder customer(String customer) {
+            order.setCustomer(customer);
             return this;
         }
 
-        public UserBuilder isActive(Boolean isActive) {
-            user.setActive(isActive);
+        public OrderBuilder dateOn(Instant dateOn) {
+            order.setDateOn(dateOn);
             return this;
         }
 
-        public UserBuilder login(String login) {
-            user.setLogin(login);
+        public OrderBuilder executor(String executor) {
+            order.setExecutor(executor);
             return this;
         }
 
-        public UserBuilder name(String name) {
-            user.setName(name);
+        public OrderBuilder gratuity(double gratuity) {
+            order.setGratuity(gratuity);
             return this;
         }
 
-        public UserBuilder password(String password) {
-            user.setPassword(password);
+        public OrderBuilder id(long id) {
+            order.setId(id);
             return this;
         }
 
-        public UserBuilder role(UserRole role) {
-            user.setRole(role);
+        public OrderBuilder state(State state) {
+            order.setState(state);
             return this;
         }
 
-        public UserBuilder surname(String surname) {
-            user.setSurname(surname);
+        public OrderBuilder tableNumber(int tableNumber) {
+            order.setTableNumber(tableNumber);
             return this;
         }
 
-        public UserBuilder updatedBy(String updatedBy) {
-            user.setUpdatedBy(updatedBy);
+        public OrderBuilder updatedBy(String updatedBy) {
+            order.setUpdatedBy(updatedBy);
             return this;
         }
 
-        public UserBuilder updatedOn(Instant updatedOn) {
-            user.setUpdatedOn(updatedOn);
+        public OrderBuilder updatedOn(Date updatedOn) {
+            order.setUpdatedOn(updatedOn);
             return this;
         }
 
         public Order build() {
-            return user;
+            return order;
         }
     }
 }
