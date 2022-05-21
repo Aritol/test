@@ -1,5 +1,8 @@
 package ua.org.learn.task.restaurant.dao;
 
+import ua.org.learn.task.restaurant.configuration.Configuration;
+import ua.org.learn.task.restaurant.constant.StringConstant;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,19 +10,16 @@ import java.util.ResourceBundle;
 
 public final class DBUtil {
     private static DBUtil instance = null;
-
-//    private final String dbDriver;
     private final String dbUrl;
     private final String dbUser;
     private final String dbPassword;
 
     private DBUtil() throws ClassNotFoundException {
-        ResourceBundle bundle = ResourceBundle.getBundle("restaurant");
-        dbUrl = bundle.getString("db.url");
-//        dbDriver = bundle.getString("db.driver");
-        dbUser = bundle.getString("db.user");
-        dbPassword = bundle.getString("db.password");
-        Class.forName(bundle.getString("db.driver"));
+        Configuration configuration = Configuration.getInstance();
+        dbUrl = configuration.getCommonProperty(StringConstant.PROPERTY_DB_URL);
+        dbUser = configuration.getCommonProperty(StringConstant.PROPERTY_DB_USER);
+        dbPassword = configuration.getCommonProperty(StringConstant.PROPERTY_DB_PASSWORD);
+        Class.forName(configuration.getCommonProperty(StringConstant.PROPERTY_DB_DRIVER));
     }
 
     public static DBUtil getInstance() throws ClassNotFoundException {

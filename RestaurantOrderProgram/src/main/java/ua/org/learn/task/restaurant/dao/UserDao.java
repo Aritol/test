@@ -14,6 +14,7 @@ public class UserDao {
     private final static String SELECT_ALL_USERS = "SELECT * FROM USER";
     private final static String INSERT_USER = "INSERT INTO USER (IS_ACTIVE, LOGIN, NAME, PASSWORD, ROLE, SURNAME, UPDATED_BY, UPDATED_ON) " +
             "VALUES(?,?,?,?,?,?,?,?)";
+    private final static String REMOVE_USER = "DELETE FROM USER WHERE ID =?";
     public static List<User> getAllUsers() throws ClassNotFoundException, SQLException {
         List<User> users = new ArrayList<>();
         try (Connection connection = DBUtil.getInstance().getConnection();
@@ -48,7 +49,15 @@ public class UserDao {
     }
 
     public static User getUserByLogin(String login) throws ClassNotFoundException, SQLException {
-        return getAllUsers().stream().filter(user -> user.getLogin().equals(login)).findFirst().orElse(null);
+        return getAllUsers().stream().filter(user -> user.getLogin().equalsIgnoreCase(login)).findFirst().orElse(null);
+    }
+
+    public static void removeUserById(long id) throws ClassNotFoundException, SQLException {
+        try (Connection connection = DBUtil.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(REMOVE_USER)) {
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        }
     }
 
     private static User buildUser(ResultSet resultSet) throws SQLException {
