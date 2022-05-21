@@ -21,6 +21,14 @@ public class UserService {
         return instance;
     }
 
+    public User addUser(User user) throws BusinessException {
+        try {
+            return UserDao.createUser(user);
+        } catch (ClassNotFoundException| SQLException e) {
+            throw new BusinessException("Can't load data from database");
+        }
+    }
+
     public List<User> getAllUsers() throws BusinessException {
         try {
             return UserDao.getAllUsers();
@@ -55,6 +63,14 @@ public class UserService {
         try {
             UserDao.removeUserById(id);
         } catch (ClassNotFoundException | SQLException e) {
+            throw new BusinessException("Can't load data from database");
+        }
+    }
+
+    public void updateUser(User user) throws BusinessException {
+        try {
+            UserDao.updateUser(user);
+        } catch (ClassNotFoundException| SQLException e) {
             throw new BusinessException("Can't load data from database");
         }
     }

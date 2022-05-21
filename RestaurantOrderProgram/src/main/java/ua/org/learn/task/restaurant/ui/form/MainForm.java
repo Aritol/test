@@ -1,16 +1,13 @@
-package ua.org.learn.task.restaurant.ui;
+package ua.org.learn.task.restaurant.ui.form;
 
 import ua.org.learn.task.restaurant.configuration.Configuration;
 import ua.org.learn.task.restaurant.constant.StringConstant;
-import ua.org.learn.task.restaurant.exception.BusinessException;
 import ua.org.learn.task.restaurant.model.User;
-import ua.org.learn.task.restaurant.service.UserService;
-import ua.org.learn.task.restaurant.ui.table.UserTableModel;
+import ua.org.learn.task.restaurant.ui.user.UserPanel;
 import ua.org.learn.task.restaurant.ui.util.ImageUtil;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
 public class MainForm extends JFrame {
@@ -23,7 +20,7 @@ public class MainForm extends JFrame {
     private JLabel loggedLabel;
     private JPanel orderPanel;
     private JTabbedPane tabbedPane;
-    private JPanel userPanel = new JPanel();
+    private UserPanel userPanel;
 
     private MainForm() {
         super();
@@ -44,20 +41,9 @@ public class MainForm extends JFrame {
 
         orderPanel = new JPanel();
 
-        userPanel = new JPanel();
-        JPanel userActionPanel = new JPanel();
-        userPanel.add(userActionPanel, BorderLayout.NORTH);
-        try {
-            JTable userTable = new JTable(new UserTableModel());
-            userTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-            TableCellRenderer cellRenderer = userTable.getDefaultRenderer(JButton.class);
-            userTable.setDefaultRenderer(JButton.class, new JComponentTableCellRender(cellRenderer));
-            userPanel.add(new JScrollPane(userTable), BorderLayout.CENTER);
-        } catch (BusinessException e) {
-            throw new RuntimeException(e);
-        }
-
         foodPanel = new JPanel();
+
+        userPanel = new UserPanel();
 
         tabbedPane = new JTabbedPane();
         add(tabbedPane, BorderLayout.CENTER);
@@ -91,6 +77,10 @@ public class MainForm extends JFrame {
                     setManagerVisibility();
                     break;
             }
+
+            if (userPanel != null) {
+                userPanel.setCurrentUser(user);
+            }
         }
     }
 
@@ -121,5 +111,9 @@ public class MainForm extends JFrame {
             instance = new MainForm();
         }
         return instance;
+    }
+
+    public void updateUserList() {
+        userPanel.modelUpdate();
     }
 }

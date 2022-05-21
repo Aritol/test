@@ -1,4 +1,4 @@
-package ua.org.learn.task.restaurant.ui.table;
+package ua.org.learn.task.restaurant.ui.user;
 
 import ua.org.learn.task.restaurant.constant.StringConstant;
 import ua.org.learn.task.restaurant.exception.BusinessException;
@@ -6,19 +6,19 @@ import ua.org.learn.task.restaurant.model.User;
 import ua.org.learn.task.restaurant.model.UserRole;
 import ua.org.learn.task.restaurant.service.UserService;
 
-import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import java.util.Date;
 import java.util.List;
 
 public class UserTableModel extends AbstractTableModel {
     private List<User> users;
 
-    public UserTableModel() throws BusinessException {
-        updateUserList();
+    public UserTableModel() {
+        fireTableDataChanged();
     }
     @Override
     public int getRowCount() {
-        return users.size();
+        return users != null ? users.size() : 0;
     }
 
     @Override
@@ -33,14 +33,14 @@ public class UserTableModel extends AbstractTableModel {
             case 1:
             case 2:
             case 3:
-                return String.class;
             case 4:
-                return UserRole.class;
+                return String.class;
             case 5:
-                return Boolean.class;
+                return UserRole.class;
             case 6:
+                return Date.class;
             case 7:
-                return JButton.class;
+                return Boolean.class;
             default:
                 return null;
         }
@@ -58,12 +58,13 @@ public class UserTableModel extends AbstractTableModel {
             case 3:
                 return StringConstant.COLUMN_PASSWORD;
             case 4:
-                return StringConstant.COLUMN_ROLE;
+                return StringConstant.COLUMN_UPDATED_BY;
             case 5:
-                return StringConstant.COLUMN_IS_ACTIVE;
+                return StringConstant.COLUMN_ROLE;
             case 6:
+                return  StringConstant.COLUMN_UPDATED_ON;
             case 7:
-                return "";
+                return StringConstant.COLUMN_IS_ACTIVE;
             default:
                 return null;
         }
@@ -81,40 +82,33 @@ public class UserTableModel extends AbstractTableModel {
             case 3:
                 return users.get(rowIndex).getPassword();
             case 4:
-                return users.get(rowIndex).getRole();
+                return users.get(rowIndex).getUpdatedBy();
             case 5:
-                return users.get(rowIndex).getActive();
+                return users.get(rowIndex).getRole();
             case 6:
-                return getEditButton(users.get(rowIndex).getId());
+                return users.get(rowIndex).getUpdatedOn();
             case 7:
-                return getRemoveButton(users.get(rowIndex).getId());
+                return users.get(rowIndex).getActive();
             default:
                 return null;
         }
     }
 
-    public void updateUserList() throws BusinessException {
-        users = UserService.getInstance().getAllUsers();
+    @Override
+    public void fireTableDataChanged() {
+        try {
+            users = UserService.getInstance().getAllUsers();
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
+        super.fireTableDataChanged();
     }
 
-    private JButton getEditButton(long id) {
-        JButton edit = new JButton("Edit");
-        edit.addActionListener(e -> {
-        });
-        return edit;
-    }
-
-    private JButton getRemoveButton(long id) {
-        JButton edit = new JButton("Remove");
-        edit.addActionListener(event -> {
-            try {
-                UserService.getInstance().removeUserById(id);
-                updateUserList();
-                fireTableDataChanged();
-            } catch (BusinessException e) {
-                e.printStackTrace();
-            }
-        });
-        return edit;
+    public User getUserByRow(int row) {
+        if (row >= 0 && row < users.size()) {
+            return users.get(row);
+        } else {
+            return null;
+        }
     }
 }

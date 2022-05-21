@@ -1,4 +1,4 @@
-package ua.org.learn.task.restaurant.ui;
+package ua.org.learn.task.restaurant.ui.form;
 
 import ua.org.learn.task.restaurant.configuration.Configuration;
 import ua.org.learn.task.restaurant.constant.StringConstant;
@@ -7,11 +7,8 @@ import ua.org.learn.task.restaurant.model.User;
 import ua.org.learn.task.restaurant.service.UserService;
 import ua.org.learn.task.restaurant.ui.util.ImageUtil;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class LoginForm extends JFrame {
     private static LoginForm instance = null;

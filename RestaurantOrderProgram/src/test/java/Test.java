@@ -1,28 +1,13 @@
-import ua.org.learn.task.restaurant.dao.DBUtil;
-import ua.org.learn.task.restaurant.dao.UserDao;
-import ua.org.learn.task.restaurant.model.User;
-import ua.org.learn.task.restaurant.model.UserRole;
+import ua.org.learn.task.restaurant.ui.user.UserPanel;
 
-import java.sql.Date;
-import java.sql.SQLException;
-import java.time.Instant;
+import javax.swing.*;
 
 public class Test {
     public static void main(String[] args) throws ClassNotFoundException {
-        User user = User.builder()
-                .isActive(true)
-                .login("test2")
-                .name("Test")
-                .password("12345")
-                .role(UserRole.CUSTOMER)
-                .surname("Customer")
-                .updatedBy("admin").updatedOn(new Date(Instant.now().toEpochMilli()))
-                .build();
-        try {
-            user = UserDao.createUser(user);
-            System.out.println(user);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        JFrame frame = new JFrame("Test");
+        frame.getContentPane().add(new UserPanel());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setVisible(true);
     }
 }
