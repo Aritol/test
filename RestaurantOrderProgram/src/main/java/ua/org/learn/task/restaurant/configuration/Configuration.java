@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -39,6 +40,10 @@ public class Configuration {
         return resourceBundle.getString(name);
     }
 
+    public void loadLanguagePack(Locale locale) {
+        resourceBundle = ResourceBundle.getBundle(StringConstant.PATH_LANGUAGE, locale);
+    }
+
     private void load() {
         commonProperties = new Properties();
         imageProperties = new Properties();
@@ -60,5 +65,7 @@ public class Configuration {
                 throw new RuntimeException(e);
             }
         }
+
+        loadLanguagePack(Locale.getDefault());
     }
 }

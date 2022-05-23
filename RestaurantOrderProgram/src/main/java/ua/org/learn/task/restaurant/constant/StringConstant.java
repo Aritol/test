@@ -1,15 +1,29 @@
 package ua.org.learn.task.restaurant.constant;
 
 public interface StringConstant {
+    String BUNDLE_LABEL_MENU_FOOD = "label.menu.food";
+    String BUNDLE_LABEL_MENU_FOOD_LIST = "label.menu.food.list";
+    String BUNDLE_LABEL_MENU_ORDER = "label.menu.order";
+    String BUNDLE_LABEL_MENU_ORDER_HISTORY = "label.menu.order.history";
+    String BUNDLE_LABEL_MENU_ORDER_LIST = "label.menu.order.list";
+    String BUNDLE_LABEL_MENU_USER = "label.menu.user";
+    String BUNDLE_LABEL_MENU_USER_EXIT = "label.menu.user.exit";
+    String BUNDLE_LABEL_MENU_USER_LIST = "label.menu.user.list";
+    String BUNDLE_LABEL_PANEL_STATUS_LOGGED = "label.panel.status.logged";
+
+    String COLUMN_DESCRIPTION = "DESCRIPTION";
     String COLUMN_ID = "ID";
     String COLUMN_IS_ACTIVE = "IS_ACTIVE";
     String COLUMN_LOGIN = "LOGIN";
     String COLUMN_NAME = "NAME";
     String COLUMN_PASSWORD = "PASSWORD";
+    String COLUMN_PICTURE = "PICTURE";
+    String COLUMN_PRICE = "PRICE";
     String COLUMN_ROLE = "ROLE";
     String COLUMN_SURNAME = "SURNAME";
     String COLUMN_UPDATED_BY = "UPDATED_BY";
     String COLUMN_UPDATED_ON = "UPDATED_ON";
+    String COLUMN_WEIGHT = "WEIGHT";
 
 
     
@@ -19,6 +33,7 @@ public interface StringConstant {
 
     String PATH_CONFIGURATION_COMMON = "config/common.properties";
     String PATH_CONFIGURATION_IMAGE = "config/image.properties";
+    String PATH_LANGUAGE = "lang/lang";
 
     String PROPERTY_DB_DRIVER = "db.driver";
     String PROPERTY_DB_PASSWORD = "db.password";
