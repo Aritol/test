@@ -2,9 +2,9 @@ package ua.org.learn.task.restaurant.ui.form;
 
 import ua.org.learn.task.restaurant.configuration.Configuration;
 import ua.org.learn.task.restaurant.constant.StringConstant;
-import ua.org.learn.task.restaurant.exception.BusinessException;
 import ua.org.learn.task.restaurant.model.User;
 import ua.org.learn.task.restaurant.service.UserService;
+import ua.org.learn.task.restaurant.ui.main.MainForm;
 import ua.org.learn.task.restaurant.ui.util.ImageUtil;
 
 import javax.swing.*;
@@ -70,14 +70,10 @@ public class LoginForm extends JFrame {
 
         loginButton = new JButton("Sign-in");
         loginButton.addActionListener(event -> {
-            try {
-                User user = UserService.getInstance().getUserByLoginPassword(loginField.getText(), new String(passwordField.getPassword()));
-                MainForm.getInstance().setUser(user);
-                MainForm.getInstance().setVisible(true);
-                LoginForm.this.setVisible(false);
-            } catch (BusinessException e) {
-                JOptionPane.showMessageDialog(LoginForm.this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            User user = UserService.getInstance().getUserByLoginPassword(loginField.getText(), new String(passwordField.getPassword()));
+            MainForm.getInstance().setUser(user);
+            MainForm.getInstance().setVisible(true);
+            LoginForm.this.setVisible(false);
         });
         mainPanel.setConstraints(loginButton, constraint);
         add(loginButton);

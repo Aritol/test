@@ -1,6 +1,7 @@
 package ua.org.learn.task.restaurant.model;
 
 import ua.org.learn.task.restaurant.constant.StringConstant;
+import ua.org.learn.task.restaurant.constant.UserRole;
 
 import java.sql.Date;
 
@@ -106,7 +107,7 @@ public class User {
     }
 
     public static class UserBuilder {
-        private User user;
+        private final User user;
 
         public UserBuilder() {
             user = new User();

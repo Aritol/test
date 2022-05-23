@@ -2,10 +2,10 @@ package ua.org.learn.task.restaurant.ui.user;
 
 import ua.org.learn.task.restaurant.exception.BusinessException;
 import ua.org.learn.task.restaurant.model.User;
-import ua.org.learn.task.restaurant.model.UserRole;
+import ua.org.learn.task.restaurant.constant.UserRole;
 import ua.org.learn.task.restaurant.service.UserService;
-import ua.org.learn.task.restaurant.ui.form.MainForm;
-import ua.org.learn.task.restaurant.ui.ModifyType;
+import ua.org.learn.task.restaurant.ui.main.MainForm;
+import ua.org.learn.task.restaurant.constant.ModifyType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +35,7 @@ public class UserModifyForm extends JFrame {
     private JCheckBox activeCheckbox;
 
     public UserModifyForm() {
-        setSize(300, 200);
+        setSize(500, 300);
         setResizable(false);
         setTitle("Login to Restaurant");
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -75,21 +75,17 @@ public class UserModifyForm extends JFrame {
 
         saveButton = new JButton("Save");
         saveButton.addActionListener(event -> {
-            try {
-                switch (modifyType) {
-                    case ADD:
-                        UserService.getInstance().addUser(getModifiedUser());
-                        break;
-                    case EDIT:
-                        UserService.getInstance().updateUser(getModifiedUser());
-                        break;
-                }
-                UserModifyForm.this.setVisible(false);
-                MainForm.getInstance().updateUserList();
-                MainForm.getInstance().setVisible(true);
-            } catch (BusinessException e) {
-                JOptionPane.showMessageDialog(UserModifyForm.this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            switch (modifyType) {
+                case ADD:
+                    UserService.getInstance().addUser(getModifiedUser());
+                    break;
+                case EDIT:
+                    UserService.getInstance().updateUser(getModifiedUser());
+                    break;
             }
+            UserModifyForm.this.setVisible(false);
+            MainForm.getInstance().updateUserList();
+            MainForm.getInstance().setVisible(true);
         });
         mainPanel.setConstraints(saveButton, constraint);
         add(saveButton);

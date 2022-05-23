@@ -14,7 +14,6 @@ import java.awt.*;
 public class MainForm extends JFrame {
     private static MainForm instance = null;
 
-    private Configuration configuration;
     private User user;
 
     private JPanel foodPanel;
@@ -26,9 +25,7 @@ public class MainForm extends JFrame {
     private MainForm() {
         super();
 
-        configuration = Configuration.getInstance();
-
-        String iconPath = configuration.getImageProperty(StringConstant.PROPERTY_PATH_MAIN_ICON);
+        String iconPath = Configuration.getInstance().getImageProperty(StringConstant.PROPERTY_PATH_MAIN_ICON);
         if (iconPath != null) {
             Image formIcon = ImageUtil.getImage(iconPath);
             if (formIcon != null) {
@@ -80,6 +77,7 @@ public class MainForm extends JFrame {
     public void reloadBundle() {
         menuBar.reloadBundle();
         statusPanel.reloadBundle();
+        userPanel.reloadBundle();
     }
 
     public void updateUserList() {

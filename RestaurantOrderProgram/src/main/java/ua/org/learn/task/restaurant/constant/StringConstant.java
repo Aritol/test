@@ -1,6 +1,17 @@
 package ua.org.learn.task.restaurant.constant;
 
 public interface StringConstant {
+    String BUNDLE_LABEL_BUTTON_ADD_USER = "label.button.add.user";
+    String BUNDLE_LABEL_BUTTON_EDIT_USER = "label.button.edit.user";
+    String BUNDLE_LABEL_BUTTON_REMOVE_USER = "label.button.remove.user";
+    String BUNDLE_LABEL_COLUMN_COMMON_UPDATED_BY = "label.column.common.updated.by";
+    String BUNDLE_LABEL_COLUMN_COMMON_UPDATED_ON = "label.column.common.updated.on";
+    String BUNDLE_LABEL_COLUMN_USER_ACTIVE = "label.column.user.active";
+    String BUNDLE_LABEL_COLUMN_USER_LOGIN = "label.column.user.login";
+    String BUNDLE_LABEL_COLUMN_USER_NAME = "label.column.user.name";
+    String BUNDLE_LABEL_COLUMN_USER_PASSWORD = "label.column.user.password";
+    String BUNDLE_LABEL_COLUMN_USER_ROLE = "label.column.user.role";
+    String BUNDLE_LABEL_COLUMN_USER_SURNAME = "label.column.user.surname";
     String BUNDLE_LABEL_MENU_FOOD = "label.menu.food";
     String BUNDLE_LABEL_MENU_FOOD_LIST = "label.menu.food.list";
     String BUNDLE_LABEL_MENU_ORDER = "label.menu.order";

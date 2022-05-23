@@ -1,4 +1,4 @@
-package ua.org.learn.task.restaurant.model;
+package ua.org.learn.task.restaurant.constant;
 
 public enum State {
     COMPLETE,

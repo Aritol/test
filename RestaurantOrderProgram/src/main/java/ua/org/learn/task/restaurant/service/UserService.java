@@ -5,6 +5,7 @@ import ua.org.learn.task.restaurant.exception.BusinessException;
 import ua.org.learn.task.restaurant.model.User;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class UserService {
@@ -21,57 +22,39 @@ public class UserService {
         return instance;
     }
 
-    public User addUser(User user) throws BusinessException {
-        try {
-            return UserDao.createUser(user);
-        } catch (ClassNotFoundException| SQLException e) {
-            throw new BusinessException("Can't load data from database");
-        }
+    public User addUser(User user) {
+        return UserDao.createUser(user);
     }
 
-    public List<User> getAllUsers() throws BusinessException {
-        try {
-            return UserDao.getAllUsers();
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new BusinessException("Can't load data from database");
-        }
+    public List<User> getAllUsers() {
+       return UserDao.getAllUsers();
     }
 
-    public User getUserByLogin(String login) throws BusinessException {
+    public User getUserByLogin(String login) {
         try {
             User user = UserDao.getUserByLogin(login);
             if (user != null) {
                 return user;
-            } else {
-                throw new BusinessException("User not found");
             }
         } catch (ClassNotFoundException | SQLException e) {
-            throw new BusinessException("Can't load data from database");
+            e.printStackTrace();
         }
+        return null;
     }
 
-    public User getUserByLoginPassword(String login, String password) throws BusinessException {
+    public User getUserByLoginPassword(String login, String password) {
         User user = getUserByLogin(login);
         if (user.getPassword().equals(password)) {
             return user;
-        } else {
-            throw new BusinessException("Password incorrect");
         }
+        return null;
     }
 
-    public void removeUserById(long id) throws BusinessException {
-        try {
-            UserDao.removeUserById(id);
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new BusinessException("Can't load data from database");
-        }
+    public void removeUserById(long id)  {
+        UserDao.removeUserById(id);
     }
 
-    public void updateUser(User user) throws BusinessException {
-        try {
-            UserDao.updateUser(user);
-        } catch (ClassNotFoundException| SQLException e) {
-            throw new BusinessException("Can't load data from database");
-        }
+    public void updateUser(User user) {
+        UserDao.updateUser(user);
     }
 }

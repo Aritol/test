@@ -4,13 +4,11 @@ import ua.org.learn.task.restaurant.configuration.Configuration;
 import ua.org.learn.task.restaurant.constant.StringConstant;
 import ua.org.learn.task.restaurant.constant.UiConstant;
 import ua.org.learn.task.restaurant.model.User;
+import ua.org.learn.task.restaurant.ui.util.UiComponentUtil;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 public class MainMenuBar extends JMenuBar {
-    private final Configuration configuration;
-
     private final JMenuItem foodListItem;
     private final JMenu foodMenu;
     private final JMenuItem orderHistoryItem;
@@ -22,35 +20,45 @@ public class MainMenuBar extends JMenuBar {
 
     public MainMenuBar(MainForm form) {
         super();
-        setFont(UiConstant.FONT_COMMON);
+        setFont(UiConstant.FONT_BOLD_16);
 
-        configuration = Configuration.getInstance();
-
-        orderMenu = createMenu(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER));
+        orderMenu = UiComponentUtil.createMenu(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER));
         add(orderMenu);
 
-        orderListItem = createMenuItem(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER_LIST), event -> form.orderList());
+        orderListItem = UiComponentUtil.createMenuItem(
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER_LIST),
+                event -> form.orderList()
+        );
         orderMenu.add(orderListItem);
 
-        orderHistoryItem = createMenuItem(configuration.getBundleProperty(
-                StringConstant.BUNDLE_LABEL_MENU_ORDER_HISTORY),
+        orderHistoryItem = UiComponentUtil.createMenuItem(
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER_HISTORY),
                 event -> form.orderHistory()
         );
         orderMenu.add(orderHistoryItem);
 
-        foodMenu = createMenu(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_FOOD));
+        foodMenu = UiComponentUtil.createMenu(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_FOOD));
         add(foodMenu);
 
-        foodListItem = createMenuItem(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_FOOD_LIST), event -> form.foodList());
+        foodListItem = UiComponentUtil.createMenuItem(
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_FOOD_LIST),
+                event -> form.foodList()
+        );
         foodMenu.add(foodListItem);
 
-        userMenu = createMenu(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER));
+        userMenu = UiComponentUtil.createMenu(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER));
         add(userMenu);
 
-        userListItem = createMenuItem(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_LIST), event -> form.userList());
+        userListItem = UiComponentUtil.createMenuItem(
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_LIST),
+                event -> form.userList()
+        );
         userMenu.add(userListItem);
 
-        userExitItem = createMenuItem(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_EXIT), event -> form.userExit());
+        userExitItem = UiComponentUtil.createMenuItem(
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_EXIT),
+                event -> form.userExit()
+        );
         userMenu.add(userExitItem);
     }
 
@@ -65,12 +73,12 @@ public class MainMenuBar extends JMenuBar {
                 case CUSTOMER:
                 case MANAGER:
                     foodMenu.setEnabled(false);
-                    foodMenu.setEnabled(true);
+                    orderMenu.setEnabled(true);
                     userListItem.setEnabled(false);
                     break;
                 default:
                     foodMenu.setEnabled(false);
-                    foodMenu.setEnabled(false);
+                    orderMenu.setEnabled(false);
                     userListItem.setEnabled(false);
                     break;
             }
@@ -78,26 +86,13 @@ public class MainMenuBar extends JMenuBar {
     }
 
     public void reloadBundle() {
-        foodMenu.setText(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_FOOD));
-        foodListItem.setText(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_FOOD_LIST));
-        orderMenu.setText(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER));
-        orderHistoryItem.setText(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER_HISTORY));
-        orderListItem.setText(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER_LIST));
-        userMenu.setText(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER));
-        userExitItem.setText(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_LIST));
-        userListItem.setText(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_EXIT));
-    }
-
-    private JMenu createMenu(String name) {
-        JMenu menu = new JMenu(name);
-        menu.setFont(UiConstant.FONT_COMMON);
-        return menu;
-    }
-
-    private JMenuItem createMenuItem(String name, ActionListener actionListener) {
-        JMenuItem menuItem = new JMenuItem(name);
-        menuItem.setFont(UiConstant.FONT_COMMON);
-        menuItem.addActionListener(actionListener);
-        return menuItem;
+        foodMenu.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_FOOD));
+        foodListItem.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_FOOD_LIST));
+        orderMenu.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER));
+        orderHistoryItem.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER_HISTORY));
+        orderListItem.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER_LIST));
+        userMenu.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER));
+        userExitItem.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_LIST));
+        userListItem.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_EXIT));
     }
 }

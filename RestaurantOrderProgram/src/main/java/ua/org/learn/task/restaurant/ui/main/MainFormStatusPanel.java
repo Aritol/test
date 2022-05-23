@@ -11,7 +11,6 @@ import java.awt.*;
 
 public class MainFormStatusPanel extends JPanel {
     private User currentUser;
-    private final Configuration configuration;
 
     private final JLabel loggedLabel;
 
@@ -21,17 +20,15 @@ public class MainFormStatusPanel extends JPanel {
         setPreferredSize(new Dimension(frame.getWidth(), UiConstant.UI_DEFAULT_HEIGHT));
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-        configuration = Configuration.getInstance();
-
-        loggedLabel = new JLabel(configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_PANEL_STATUS_LOGGED));
-        loggedLabel.setFont(UiConstant.FONT_CAPTURE);
+        loggedLabel = new JLabel(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_PANEL_STATUS_LOGGED));
+        loggedLabel.setFont(UiConstant.FONT_ITALIC_16);
         loggedLabel.setHorizontalAlignment(SwingConstants.LEFT);
         add(loggedLabel);
     }
 
     public void reloadBundle() {
         loggedLabel.setText(String.format(
-                configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_PANEL_STATUS_LOGGED),
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_PANEL_STATUS_LOGGED),
                 currentUser.getName(),
                 currentUser.getSurname()
         ));
