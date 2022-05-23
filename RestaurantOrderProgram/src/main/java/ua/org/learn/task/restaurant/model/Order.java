@@ -1,13 +1,13 @@
 package ua.org.learn.task.restaurant.model;
 
+import ua.org.learn.task.restaurant.constant.State;
 import ua.org.learn.task.restaurant.constant.StringConstant;
 
-import java.time.Instant;
-import java.util.Date;
+import java.sql.Date;
 
 public class Order {
     private String customer;
-    private Instant dateOn;
+    private Date dateOn;
     private String executor;
     private double gratuity;
     private long id;
@@ -20,7 +20,7 @@ public class Order {
         return customer;
     }
 
-    public Instant getDateOn() {
+    public Date getDateOn() {
         return dateOn;
     }
 
@@ -56,7 +56,7 @@ public class Order {
         this.customer = customer;
     }
 
-    public void setDateOn(Instant dateOn) {
+    public void setDateOn(Date dateOn) {
         this.dateOn = dateOn;
     }
 
@@ -109,7 +109,7 @@ public class Order {
             return this;
         }
 
-        public OrderBuilder dateOn(Instant dateOn) {
+        public OrderBuilder dateOn(Date dateOn) {
             order.setDateOn(dateOn);
             return this;
         }

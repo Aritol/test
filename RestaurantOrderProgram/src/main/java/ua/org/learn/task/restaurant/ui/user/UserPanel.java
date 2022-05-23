@@ -24,15 +24,15 @@ public class UserPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         userTableModel = new UserTableModel();
-        userTable = new JTable(userTableModel);
-        userTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        userTable = UiComponentUtil.createTable(userTableModel);
         add(new JScrollPane(userTable));
 
         JPanel userActionPanel = new JPanel();
+        userActionPanel.setLayout(new BoxLayout(userActionPanel, BoxLayout.LINE_AXIS));
         add(userActionPanel);
 
         addUser = UiComponentUtil.createButton(
-                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_ADD_USER),
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_USER_ADD),
                 event -> {
                     UserModifyForm.getInstance().setModifyType(ModifyType.ADD);
                     UserModifyForm.getInstance().setCurrentUser(currentUser);
@@ -43,7 +43,7 @@ public class UserPanel extends JPanel {
         userActionPanel.add(addUser);
 
         editUser = UiComponentUtil.createButton(
-                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_EDIT_USER),
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_USER_EDIT),
                 event -> {
                     User selectedUser = userTableModel.getUserByRow(userTable.getSelectedRow());
                     if (selectedUser != null) {
@@ -58,7 +58,7 @@ public class UserPanel extends JPanel {
         userActionPanel.add(editUser);
 
         removeUser = UiComponentUtil.createButton(
-                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_REMOVE_USER),
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_USER_REMOVE),
                 event -> {
                     User selectedUser = userTableModel.getUserByRow(userTable.getSelectedRow());
                     if (selectedUser != null) {
@@ -79,8 +79,8 @@ public class UserPanel extends JPanel {
     }
 
     public void reloadBundle() {
-        addUser.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_ADD_USER));
-        editUser.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_EDIT_USER));
-        removeUser.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_REMOVE_USER));
+        addUser.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_USER_ADD));
+        editUser.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_USER_EDIT));
+        removeUser.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_USER_REMOVE));
     }
 }

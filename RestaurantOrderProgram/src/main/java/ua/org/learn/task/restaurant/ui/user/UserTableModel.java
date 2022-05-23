@@ -2,7 +2,6 @@ package ua.org.learn.task.restaurant.ui.user;
 
 import ua.org.learn.task.restaurant.configuration.Configuration;
 import ua.org.learn.task.restaurant.constant.StringConstant;
-import ua.org.learn.task.restaurant.exception.BusinessException;
 import ua.org.learn.task.restaurant.model.User;
 import ua.org.learn.task.restaurant.constant.UserRole;
 import ua.org.learn.task.restaurant.service.UserService;
@@ -12,11 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 public class UserTableModel extends AbstractTableModel {
-    private final Configuration configuration;
     private List<User> users;
 
     public UserTableModel() {
-        configuration = Configuration.getInstance();
         fireTableDataChanged();
     }
     @Override
@@ -53,21 +50,21 @@ public class UserTableModel extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_NAME);
+                return Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_NAME);
             case 1:
-                return configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_SURNAME);
+                return Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_SURNAME);
             case 2:
-                return configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_LOGIN);
+                return Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_LOGIN);
             case 3:
-                return configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_PASSWORD);
+                return Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_PASSWORD);
             case 4:
-                return configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_COMMON_UPDATED_BY);
+                return Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_COMMON_UPDATED_BY);
             case 5:
-                return configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_ROLE);
+                return Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_ROLE);
             case 6:
-                return  configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_COMMON_UPDATED_ON);
+                return  Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_COMMON_UPDATED_ON);
             case 7:
-                return configuration.getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_ACTIVE);
+                return Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_ACTIVE);
             default:
                 return null;
         }

@@ -1,11 +1,12 @@
-package ua.org.learn.task.restaurant.ui.user;
+package ua.org.learn.task.restaurant.ui;
 
+import ua.org.learn.task.restaurant.constant.ModifyType;
+import ua.org.learn.task.restaurant.exception.BusinessException;
 import ua.org.learn.task.restaurant.model.User;
 import ua.org.learn.task.restaurant.constant.UserRole;
 import ua.org.learn.task.restaurant.service.UserService;
 import ua.org.learn.task.restaurant.ui.main.MainForm;
-import ua.org.learn.task.restaurant.constant.ModifyType;
-import ua.org.learn.task.restaurant.ui.util.UiComponentUtil;
+import ua.org.learn.task.restaurant.ui.user.UserModifyForm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ import java.awt.event.WindowListener;
 import java.sql.Date;
 import java.time.Instant;
 
-public class UserModifyForm extends JFrame {
+public class FoodModifyForm extends JFrame {
     private static UserModifyForm instance = null;
 
     private User currentUser;
@@ -34,10 +35,12 @@ public class UserModifyForm extends JFrame {
     private JLabel surnameLabel;
     private JCheckBox activeCheckbox;
 
-    public UserModifyForm() {
+    public FoodModifyForm() {
         setSize(500, 300);
+        Font font = new Font(Font.SANS_SERIF, Font.BOLD, 16);
         setResizable(false);
         setTitle("Login to Restaurant");
+        setFont(font);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         GridBagLayout mainPanel = new GridBagLayout();
@@ -48,26 +51,26 @@ public class UserModifyForm extends JFrame {
 
         nameLabel = new JLabel("Name");
         nameField = new JTextField();
-        UiComponentUtil.locateComponent(this, mainPanel, constraint, nameLabel, nameField);
+        addRow(mainPanel, constraint, nameLabel, nameField);
 
         surnameLabel = new JLabel("Surname");
         surnameField = new JTextField();
-        UiComponentUtil.locateComponent(this, mainPanel, constraint, surnameLabel, surnameField);
+        addRow(mainPanel, constraint, surnameLabel, surnameField);
 
         loginLabel = new JLabel("Login");
         loginField = new JTextField();
-        UiComponentUtil.locateComponent(this, mainPanel, constraint, loginLabel, loginField);
+        addRow(mainPanel, constraint, loginLabel, loginField);
 
         passwordLabel = new JLabel("Password");
         passwordField = new JTextField();
-        UiComponentUtil.locateComponent(this, mainPanel, constraint, passwordLabel, passwordField);
+        addRow(mainPanel, constraint, passwordLabel, passwordField);
 
         roleLabel = new JLabel("Role");
         roleField = new JComboBox<>();
         roleField.addItem(UserRole.ADMINISTRATOR);
         roleField.addItem(UserRole.CUSTOMER);
         roleField.addItem(UserRole.MANAGER);
-        UiComponentUtil.locateComponent(this, mainPanel, constraint, roleLabel, roleField);
+        addRow(mainPanel, constraint, roleLabel, roleField);
 
         activeCheckbox = new JCheckBox("Is Active User");
         mainPanel.setConstraints(activeCheckbox, constraint);
@@ -83,7 +86,7 @@ public class UserModifyForm extends JFrame {
                     UserService.getInstance().updateUser(getModifiedUser());
                     break;
             }
-            UserModifyForm.this.setVisible(false);
+            FoodModifyForm.this.setVisible(false);
             MainForm.getInstance().updateUserList();
             MainForm.getInstance().setVisible(true);
         });
@@ -171,6 +174,18 @@ public class UserModifyForm extends JFrame {
             activeCheckbox.setSelected(Boolean.TRUE);
             modifyId = 0;
         }
+    }
+
+    private void addRow(GridBagLayout layout, GridBagConstraints constraint, Component label, Component field) {
+        constraint.weightx = 1;
+        constraint.gridwidth = GridBagConstraints.RELATIVE;
+        layout.setConstraints(label, constraint);
+        add(label);
+
+        constraint.weightx = 3;
+        constraint.gridwidth = GridBagConstraints.REMAINDER;
+        layout.setConstraints(field, constraint);
+        add(field);
     }
 
     private User getModifiedUser() {

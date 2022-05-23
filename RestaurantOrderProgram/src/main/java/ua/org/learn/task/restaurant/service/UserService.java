@@ -1,11 +1,9 @@
 package ua.org.learn.task.restaurant.service;
 
 import ua.org.learn.task.restaurant.dao.UserDao;
-import ua.org.learn.task.restaurant.exception.BusinessException;
 import ua.org.learn.task.restaurant.model.User;
 
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 
 public class UserService {
@@ -22,8 +20,8 @@ public class UserService {
         return instance;
     }
 
-    public User addUser(User user) {
-        return UserDao.createUser(user);
+    public void addUser(User user) {
+        UserDao.createUser(user);
     }
 
     public List<User> getAllUsers() {

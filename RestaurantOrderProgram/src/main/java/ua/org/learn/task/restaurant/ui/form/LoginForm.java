@@ -2,40 +2,42 @@ package ua.org.learn.task.restaurant.ui.form;
 
 import ua.org.learn.task.restaurant.configuration.Configuration;
 import ua.org.learn.task.restaurant.constant.StringConstant;
+import ua.org.learn.task.restaurant.constant.UiConstant;
 import ua.org.learn.task.restaurant.model.User;
 import ua.org.learn.task.restaurant.service.UserService;
 import ua.org.learn.task.restaurant.ui.main.MainForm;
 import ua.org.learn.task.restaurant.ui.util.ImageUtil;
+import ua.org.learn.task.restaurant.ui.util.UiComponentUtil;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Locale;
 
 public class LoginForm extends JFrame {
     private static LoginForm instance = null;
 
-    private Configuration configuration;
-
-    private JButton loginButton;
-    private JTextField loginField;
-    private JLabel loginLabel;
-    private JPasswordField passwordField;
-    private JLabel passwordLabel;
+    private final JComboBox<String> languageComboBox;
+    private final JLabel languageLabel;
+    private final JButton loginButton;
+    private final JTextField loginField;
+    private final JLabel loginLabel;
+    private final JPasswordField passwordField;
+    private final JLabel passwordLabel;
 
     private LoginForm() {
         super();
 
-        configuration = Configuration.getInstance();
-
-        String iconPath = configuration.getImageProperty(StringConstant.PROPERTY_PATH_ICON_LOGIN_FORM);
+        String iconPath = Configuration.getInstance().getImageProperty(StringConstant.PROPERTY_PATH_ICON_LOGIN_FORM);
         if (iconPath != null) {
             Image formIcon = ImageUtil.getImage(iconPath);
             if (formIcon != null) {
                 setIconImage(formIcon);
             }
         }
-        setSize(300, 120);
+        setFont(UiConstant.FONT_ITALIC_16);
+        setSize(500, 160);
         setResizable(false);
-        setTitle("Login to Restaurant");
+        setTitle(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FORM_LOGIN));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GridBagLayout mainPanel = new GridBagLayout();
@@ -43,44 +45,55 @@ public class LoginForm extends JFrame {
 
         GridBagConstraints constraint = new GridBagConstraints();
         constraint.fill = GridBagConstraints.BOTH;
-        constraint.weightx = 1;
 
-        loginLabel = new JLabel("Login");
-        mainPanel.setConstraints(loginLabel, constraint);
-        add(loginLabel);
 
-        loginField = new JTextField();
-        constraint.weightx = 3;
-        constraint.gridwidth = GridBagConstraints.REMAINDER;
-        mainPanel.setConstraints(loginField, constraint);
-        add(loginField);
 
-        passwordLabel = new JLabel("Password");
-        constraint.weightx = 1;
-        constraint.gridwidth = GridBagConstraints.RELATIVE;
-        mainPanel.setConstraints(passwordLabel, constraint);
-        add(passwordLabel);
+        loginLabel = UiComponentUtil.createLabel(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_LOGIN));
+        loginField = UiComponentUtil.createTextField();
+        UiComponentUtil.locateComponent(this, mainPanel, constraint, loginLabel, loginField);
 
-        passwordField = new JPasswordField();
-        passwordField.setMinimumSize(new Dimension(200,40));
-        constraint.weightx = 3;
-        constraint.gridwidth = GridBagConstraints.REMAINDER;
-        mainPanel.setConstraints(passwordField, constraint);
-        add(passwordField);
+        passwordLabel = UiComponentUtil.createLabel(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_PASSWORD));
+        passwordField = UiComponentUtil.createPasswordField();
+        UiComponentUtil.locateComponent(this, mainPanel, constraint, passwordLabel, passwordField);
 
-        loginButton = new JButton("Sign-in");
-        loginButton.addActionListener(event -> {
-            User user = UserService.getInstance().getUserByLoginPassword(loginField.getText(), new String(passwordField.getPassword()));
-            MainForm.getInstance().setUser(user);
-            MainForm.getInstance().setVisible(true);
-            LoginForm.this.setVisible(false);
+        languageLabel = UiComponentUtil.createLabel(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_LANGUAGE));
+        languageComboBox = UiComponentUtil.createComboBox("uk", "en");
+        languageComboBox.setSelectedItem("en");
+        languageComboBox.addItemListener(event -> {
+            Configuration.getInstance().loadLanguagePack(new Locale(event.getItem().toString()));
+            reloadBundle();
         });
+        UiComponentUtil.locateComponent(this, mainPanel, constraint, languageLabel, languageComboBox);
+
+        loginButton = UiComponentUtil.createButton(
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_SIGN_IN),
+                event -> {
+                    User user = UserService.getInstance().getUserByLoginPassword(loginField.getText(), new String(passwordField.getPassword()));
+                    if (user != null) {
+                        MainForm.getInstance().setUser(user);
+                        MainForm.getInstance().setVisible(true);
+                        LoginForm.this.setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(
+                                this,
+                                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_MESSAGE_USER_LOGIN_WRONG),
+                                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_ERROR),
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                    }
+                }
+        );
         mainPanel.setConstraints(loginButton, constraint);
         add(loginButton);
     }
 
-    public void applyBundle() {
-
+    public void reloadBundle() {
+        setTitle(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FORM_LOGIN));
+        loginLabel.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_LOGIN));
+        passwordLabel.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_PASSWORD));
+        languageLabel.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_LANGUAGE));
+        loginButton.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_SIGN_IN));
+        MainForm.getInstance().reloadBundle();
     }
 
     public static LoginForm getInstance() {

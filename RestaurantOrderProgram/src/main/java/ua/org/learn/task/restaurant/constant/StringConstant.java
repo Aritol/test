@@ -1,17 +1,24 @@
 package ua.org.learn.task.restaurant.constant;
 
 public interface StringConstant {
-    String BUNDLE_LABEL_BUTTON_ADD_USER = "label.button.add.user";
-    String BUNDLE_LABEL_BUTTON_EDIT_USER = "label.button.edit.user";
-    String BUNDLE_LABEL_BUTTON_REMOVE_USER = "label.button.remove.user";
+    String BUNDLE_LABEL_BUTTON_SIGN_IN = "label.button.sign.in";
+    String BUNDLE_LABEL_BUTTON_USER_ADD = "label.button.user.add";
+    String BUNDLE_LABEL_BUTTON_USER_EDIT = "label.button.user.edit";
+    String BUNDLE_LABEL_BUTTON_USER_REMOVE = "label.button.user.remove";
     String BUNDLE_LABEL_COLUMN_COMMON_UPDATED_BY = "label.column.common.updated.by";
     String BUNDLE_LABEL_COLUMN_COMMON_UPDATED_ON = "label.column.common.updated.on";
+    String BUNDLE_LABEL_COLUMN_ORDER_ACTIVE = "label.column.user.active";
     String BUNDLE_LABEL_COLUMN_USER_ACTIVE = "label.column.user.active";
     String BUNDLE_LABEL_COLUMN_USER_LOGIN = "label.column.user.login";
     String BUNDLE_LABEL_COLUMN_USER_NAME = "label.column.user.name";
     String BUNDLE_LABEL_COLUMN_USER_PASSWORD = "label.column.user.password";
     String BUNDLE_LABEL_COLUMN_USER_ROLE = "label.column.user.role";
     String BUNDLE_LABEL_COLUMN_USER_SURNAME = "label.column.user.surname";
+    String BUNDLE_LABEL_ERROR = "label.error";
+    String BUNDLE_LABEL_FIELD_LOGIN = "label.field.login";
+    String BUNDLE_LABEL_FIELD_LANGUAGE = "label.field.language";
+    String BUNDLE_LABEL_FIELD_PASSWORD = "label.field.password";
+    String BUNDLE_LABEL_FORM_LOGIN = "label.form.login";
     String BUNDLE_LABEL_MENU_FOOD = "label.menu.food";
     String BUNDLE_LABEL_MENU_FOOD_LIST = "label.menu.food.list";
     String BUNDLE_LABEL_MENU_ORDER = "label.menu.order";
@@ -21,8 +28,12 @@ public interface StringConstant {
     String BUNDLE_LABEL_MENU_USER_EXIT = "label.menu.user.exit";
     String BUNDLE_LABEL_MENU_USER_LIST = "label.menu.user.list";
     String BUNDLE_LABEL_PANEL_STATUS_LOGGED = "label.panel.status.logged";
+    String BUNDLE_MESSAGE_USER_LOGIN_WRONG = "message.user.login.wrong";
 
+    String COLUMN_CUSTOMER = "CUSTOMER";
+    String COLUMN_DATE_ON = "DATE_ON";
     String COLUMN_DESCRIPTION = "DESCRIPTION";
+    String COLUMN_GRATUITY = "GRATUITY";
     String COLUMN_ID = "ID";
     String COLUMN_IS_ACTIVE = "IS_ACTIVE";
     String COLUMN_LOGIN = "LOGIN";
@@ -31,7 +42,9 @@ public interface StringConstant {
     String COLUMN_PICTURE = "PICTURE";
     String COLUMN_PRICE = "PRICE";
     String COLUMN_ROLE = "ROLE";
+    String COLUMN_STATE = "STATE";
     String COLUMN_SURNAME = "SURNAME";
+    String COLUMN_TABLE_NUMBER = "TABLE_NUMBER";
     String COLUMN_UPDATED_BY = "UPDATED_BY";
     String COLUMN_UPDATED_ON = "UPDATED_ON";
     String COLUMN_WEIGHT = "WEIGHT";

@@ -29,7 +29,7 @@ public class UserDao {
         return users;
     }
 
-    public static User createUser(User user) {
+    public static void createUser(User user) {
         try (Connection connection = DBUtil.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_USER)) {
             statement.setBoolean(1, user.getActive());
@@ -40,12 +40,10 @@ public class UserDao {
             statement.setString(6, user.getSurname());
             statement.setString(7, user.getUpdatedBy());
             statement.setDate(8, user.getUpdatedOn());
-            int changeLines = statement.executeUpdate();
-            user = changeLines > 0 ? getUserByLogin(user.getLogin()) : null;
+            statement.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        return user;
     }
 
     public static User getUserById(long id) {

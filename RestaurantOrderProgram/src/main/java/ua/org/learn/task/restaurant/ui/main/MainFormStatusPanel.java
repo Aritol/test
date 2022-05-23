@@ -27,11 +27,13 @@ public class MainFormStatusPanel extends JPanel {
     }
 
     public void reloadBundle() {
-        loggedLabel.setText(String.format(
-                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_PANEL_STATUS_LOGGED),
-                currentUser.getName(),
-                currentUser.getSurname()
-        ));
+        if (currentUser != null) {
+            loggedLabel.setText(String.format(
+                    Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_PANEL_STATUS_LOGGED),
+                    currentUser.getName(),
+                    currentUser.getSurname()
+            ));
+        }
     }
 
     public void setUser(User user) {

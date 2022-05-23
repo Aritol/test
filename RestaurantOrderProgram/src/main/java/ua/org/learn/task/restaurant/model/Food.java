@@ -2,16 +2,18 @@ package ua.org.learn.task.restaurant.model;
 
 import ua.org.learn.task.restaurant.constant.StringConstant;
 
+import java.sql.Blob;
+import java.sql.Date;
 import java.time.Instant;
 
 public class Food {
     private String description;
     private long id;
     private String name;
-    private byte[] picture;
+    private Blob picture;
     private double price;
     private String updatedBy;
-    private Instant updatedOn;
+    private Date updatedOn;
     private double weight;
 
     public String getDescription() {
@@ -26,7 +28,7 @@ public class Food {
         return name;
     }
 
-    public byte[] getPicture() {
+    public Blob getPicture() {
         return picture;
     }
 
@@ -38,7 +40,7 @@ public class Food {
         return updatedBy;
     }
 
-    public Instant getUpdatedOn() {
+    public Date getUpdatedOn() {
         return updatedOn;
     }
 
@@ -58,7 +60,7 @@ public class Food {
         this.name = name;
     }
 
-    public void setPicture(byte[] picture) {
+    public void setPicture(Blob picture) {
         this.picture = picture;
     }
 
@@ -70,7 +72,7 @@ public class Food {
         this.updatedBy = updatedBy;
     }
 
-    public void setUpdatedOn(Instant updatedOn) {
+    public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
 
@@ -109,7 +111,7 @@ public class Food {
             return this;
         }
 
-        public FoodBuilder picture(byte[] picture) {
+        public FoodBuilder picture(Blob picture) {
             food.setPicture(picture);
             return this;
         }
@@ -124,7 +126,7 @@ public class Food {
             return this;
         }
 
-        public FoodBuilder updatedOn(Instant updatedOn) {
+        public FoodBuilder updatedOn(Date updatedOn) {
             food.setUpdatedOn(updatedOn);
             return this;
         }

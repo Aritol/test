@@ -61,11 +61,13 @@ public class MainForm extends JFrame {
     public void foodList() {
         clearForm();
         add(foodPanel, BorderLayout.CENTER);
+        setVisible(true);
     }
 
     public void orderHistory() {
         clearForm();
         add(orderPanel, BorderLayout.CENTER);
+        setVisible(true);
     }
 
     public void orderList() {

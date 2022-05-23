@@ -1,5 +1,6 @@
 package ua.org.learn.task.restaurant.model;
 
+import ua.org.learn.task.restaurant.constant.State;
 import ua.org.learn.task.restaurant.constant.StringConstant;
 
 import java.time.Instant;

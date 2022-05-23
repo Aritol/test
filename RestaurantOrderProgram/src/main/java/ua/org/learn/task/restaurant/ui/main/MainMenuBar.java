@@ -92,7 +92,7 @@ public class MainMenuBar extends JMenuBar {
         orderHistoryItem.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER_HISTORY));
         orderListItem.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_ORDER_LIST));
         userMenu.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER));
-        userExitItem.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_LIST));
-        userListItem.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_EXIT));
+        userExitItem.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_EXIT));
+        userListItem.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_MENU_USER_LIST));
     }
 }
