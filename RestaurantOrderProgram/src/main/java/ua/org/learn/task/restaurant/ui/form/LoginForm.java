@@ -15,7 +15,7 @@ import java.util.Locale;
 
 public class LoginForm extends JFrame {
     private static LoginForm instance = null;
-    
+
     private final JLabel languageLabel;
     private final JButton loginButton;
     private final JTextField loginField;

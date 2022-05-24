@@ -1,5 +1,7 @@
 package ua.org.learn.task.restaurant.ui.util;
 
+import ua.org.learn.task.restaurant.configuration.Configuration;
+import ua.org.learn.task.restaurant.constant.StringConstant;
 import ua.org.learn.task.restaurant.constant.UiConstant;
 
 import javax.swing.*;
@@ -9,6 +11,18 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class UiComponentUtil {
+    public static boolean checkFieldValue(Component parent, Object value, String name) {
+        if (value == null || value.equals("")) {
+            JOptionPane.showMessageDialog(
+                    parent,
+                    String.format(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_MESSAGE_FIELD_CANNOT_BE_EMPTY), name),
+                    Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_WARNING),
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+        return true;
+    }
     public static JButton createButton(String name, ActionListener actionListener) {
         JButton button = new JButton(name);
         button.setFont(UiConstant.FONT_BOLD_16);
@@ -53,6 +67,13 @@ public class UiComponentUtil {
         JPasswordField field = new JPasswordField();
         field.setFont(UiConstant.FONT_PLAIN_16);
         return field;
+    }
+
+    public static JSpinner createSpinner() {
+        JSpinner spinner = new JSpinner();
+        spinner.setFont(UiConstant.FONT_PLAIN_16);
+        spinner.setValue(0.0);
+        return spinner;
     }
 
     public static JTable createTable(TableModel tableModel) {

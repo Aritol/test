@@ -4,6 +4,7 @@ import ua.org.learn.task.restaurant.configuration.Configuration;
 import ua.org.learn.task.restaurant.constant.StringConstant;
 import ua.org.learn.task.restaurant.constant.UiConstant;
 import ua.org.learn.task.restaurant.model.User;
+import ua.org.learn.task.restaurant.ui.food.FoodPanel;
 import ua.org.learn.task.restaurant.ui.form.LoginForm;
 import ua.org.learn.task.restaurant.ui.user.UserPanel;
 import ua.org.learn.task.restaurant.ui.util.ImageUtil;
@@ -11,11 +12,13 @@ import ua.org.learn.task.restaurant.ui.util.ImageUtil;
 import javax.print.DocFlavor;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class MainForm extends JFrame {
     private static MainForm instance = null;
 
-    private final JPanel foodPanel;
+    private final FoodPanel foodPanel;
     private final MainMenuBar menuBar;
     private final JPanel orderPanel;
     private final MainFormStatusPanel statusPanel;
@@ -34,19 +37,55 @@ public class MainForm extends JFrame {
         setTitle(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FORM_MAIN));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         menuBar = new MainMenuBar(this);
         setJMenuBar(menuBar);
 
         orderPanel = new JPanel();
 
-        foodPanel = new JPanel();
+        foodPanel = new FoodPanel();
 
         userPanel = new UserPanel();
 
         statusPanel = new MainFormStatusPanel(this);
         add(statusPanel, BorderLayout.SOUTH);
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                userExit();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
     }
 
     public static MainForm getInstance() {
@@ -76,9 +115,14 @@ public class MainForm extends JFrame {
 
     public void reloadBundle() {
         setTitle(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FORM_MAIN));
+        foodPanel.reloadBundle();
         menuBar.reloadBundle();
         statusPanel.reloadBundle();
         userPanel.reloadBundle();
+    }
+
+    public void updateFoodList() {
+        foodPanel.modelUpdate();
     }
 
     public void updateUserList() {
@@ -87,6 +131,7 @@ public class MainForm extends JFrame {
 
     public void setUser(User user) {
         if (user != null) {
+            foodPanel.setUser(user);
             menuBar.setUserPermission(user);
             statusPanel.setUser(user);
             userPanel.setUser(user);

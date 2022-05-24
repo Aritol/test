@@ -2,6 +2,9 @@ package ua.org.learn.task.restaurant.constant;
 
 public interface StringConstant {
     String BUNDLE_LABEL_BUTTON_CREATE = "label.button.create";
+    String BUNDLE_LABEL_BUTTON_FOOD_ADD = "label.button.food.add";
+    String BUNDLE_LABEL_BUTTON_FOOD_EDIT = "label.button.food.edit";
+    String BUNDLE_LABEL_BUTTON_FOOD_REMOVE = "label.button.food.remove";
     String BUNDLE_LABEL_BUTTON_SAVE = "label.button.save";
     String BUNDLE_LABEL_BUTTON_SIGN_IN = "label.button.sign.in";
     String BUNDLE_LABEL_BUTTON_USER_ADD = "label.button.user.add";
@@ -9,7 +12,9 @@ public interface StringConstant {
     String BUNDLE_LABEL_BUTTON_USER_REMOVE = "label.button.user.remove";
     String BUNDLE_LABEL_COLUMN_COMMON_UPDATED_BY = "label.column.common.updated.by";
     String BUNDLE_LABEL_COLUMN_COMMON_UPDATED_ON = "label.column.common.updated.on";
-    String BUNDLE_LABEL_COLUMN_ORDER_ACTIVE = "label.column.user.active";
+    String BUNDLE_LABEL_COLUMN_FOOD_NAME = "label.column.food.name";
+    String BUNDLE_LABEL_COLUMN_FOOD_PRICE = "label.column.food.price";
+    String BUNDLE_LABEL_COLUMN_FOOD_WEIGHT = "label.column.food.weight";
     String BUNDLE_LABEL_COLUMN_USER_ACTIVE = "label.column.user.active";
     String BUNDLE_LABEL_COLUMN_USER_LOGIN = "label.column.user.login";
     String BUNDLE_LABEL_COLUMN_USER_NAME = "label.column.user.name";
@@ -18,12 +23,17 @@ public interface StringConstant {
     String BUNDLE_LABEL_COLUMN_USER_SURNAME = "label.column.user.surname";
     String BUNDLE_LABEL_ERROR = "label.error";
     String BUNDLE_LABEL_FIELD_ACTIVE = "label.field.active";
+    String BUNDLE_LABEL_FIELD_FOOD_NAME = "label.field.food.name";
+    String BUNDLE_LABEL_FIELD_FOOD_PRICE = "label.field.food.price";
+    String BUNDLE_LABEL_FIELD_FOOD_WEIGHT = "label.field.food.weight";
     String BUNDLE_LABEL_FIELD_LOGIN = "label.field.login";
     String BUNDLE_LABEL_FIELD_LANGUAGE = "label.field.language";
     String BUNDLE_LABEL_FIELD_PASSWORD = "label.field.password";
     String BUNDLE_LABEL_FIELD_ROLE = "label.field.role";
     String BUNDLE_LABEL_FIELD_USER_NAME = "label.field.user.name";
     String BUNDLE_LABEL_FIELD_USER_SURNAME = "label.field.user.surname";
+    String BUNDLE_LABEL_FORM_FOOD_CREATE= "label.form.food.create";
+    String BUNDLE_LABEL_FORM_FOOD_EDIT = "label.form.food.edit";
     String BUNDLE_LABEL_FORM_LOGIN = "label.form.login";
     String BUNDLE_LABEL_FORM_MAIN = "label.form.main";
     String BUNDLE_LABEL_FORM_USER_CREATE= "label.form.user.create";

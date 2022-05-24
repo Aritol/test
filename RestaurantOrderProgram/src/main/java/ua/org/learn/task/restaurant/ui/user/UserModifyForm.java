@@ -76,7 +76,7 @@ public class UserModifyForm extends JFrame {
                 event -> {
                     if (validateFields()) {
                         switch (modifyType) {
-                            case ADD -> UserDao.createUser(getModifiedUser());
+                            case CREATE -> UserDao.createUser(getModifiedUser());
                             case EDIT -> UserDao.updateUser(getModifiedUser());
                         }
                         UserModifyForm.this.setVisible(false);
@@ -134,7 +134,7 @@ public class UserModifyForm extends JFrame {
     }
 
     public void reloadBundle() {
-        setTitle(Configuration.getInstance().getBundleProperty(modifyType == ModifyType.ADD
+        setTitle(Configuration.getInstance().getBundleProperty(modifyType == ModifyType.CREATE
                 ? StringConstant.BUNDLE_LABEL_FORM_USER_CREATE
                 : StringConstant.BUNDLE_LABEL_FORM_USER_EDIT
         ));
@@ -144,7 +144,7 @@ public class UserModifyForm extends JFrame {
         passwordLabel.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_PASSWORD));
         roleLabel.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_ROLE));
         activeCheckbox.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_ACTIVE));
-        saveButton.setText(Configuration.getInstance().getBundleProperty(modifyType == ModifyType.ADD
+        saveButton.setText(Configuration.getInstance().getBundleProperty(modifyType == ModifyType.CREATE
                 ? StringConstant.BUNDLE_LABEL_BUTTON_CREATE
                 : StringConstant.BUNDLE_LABEL_BUTTON_SAVE
         ));
@@ -157,7 +157,7 @@ public class UserModifyForm extends JFrame {
     public void setModifyType(ModifyType type) {
         modifyType = type;
         switch (modifyType) {
-            case ADD -> loginField.setEnabled(Boolean.TRUE);
+            case CREATE -> loginField.setEnabled(Boolean.TRUE);
             case EDIT -> loginField.setEnabled(Boolean.FALSE);
         }
         reloadBundle();
@@ -198,23 +198,10 @@ public class UserModifyForm extends JFrame {
     }
 
     private boolean validateFields() {
-        return checkFieldValue(nameField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_USER_NAME))
-                && checkFieldValue(surnameField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_USER_SURNAME))
-                && checkFieldValue(loginField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_LOGIN))
-                && checkFieldValue(passwordField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_PASSWORD))
-                && checkFieldValue(roleField.getSelectedItem(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_ROLE));
-    }
-
-    private boolean checkFieldValue(Object value, String name) {
-        if (value == null || value.equals("")) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    String.format(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_MESSAGE_FIELD_CANNOT_BE_EMPTY), name),
-                    Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_WARNING),
-                    JOptionPane.WARNING_MESSAGE
-            );
-            return false;
-        }
-        return true;
+        return UiComponentUtil.checkFieldValue(this, nameField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_USER_NAME))
+                && UiComponentUtil.checkFieldValue(this, surnameField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_USER_SURNAME))
+                && UiComponentUtil.checkFieldValue(this, loginField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_LOGIN))
+                && UiComponentUtil.checkFieldValue(this, passwordField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_PASSWORD))
+                && UiComponentUtil.checkFieldValue(this, roleField.getSelectedItem(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_ROLE));
     }
 }

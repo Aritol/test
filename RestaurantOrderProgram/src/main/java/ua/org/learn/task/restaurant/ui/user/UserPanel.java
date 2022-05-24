@@ -34,7 +34,8 @@ public class UserPanel extends JPanel {
         addUser = UiComponentUtil.createButton(
                 Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_USER_ADD),
                 event -> {
-                    UserModifyForm.getInstance().setModifyType(ModifyType.ADD);
+                    UserModifyForm.getInstance().setModifyType(ModifyType.CREATE);
+                    UserModifyForm.getInstance().setModifiedUser(null);
                     UserModifyForm.getInstance().setCurrentUser(currentUser);
                     UserModifyForm.getInstance().setVisible(true);
                     MainForm.getInstance().setVisible(false);

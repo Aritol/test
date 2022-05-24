@@ -10,7 +10,6 @@ public class Food {
     private String description;
     private long id;
     private String name;
-    private Blob picture;
     private double price;
     private String updatedBy;
     private Date updatedOn;
@@ -26,10 +25,6 @@ public class Food {
 
     public String getName() {
         return name;
-    }
-
-    public Blob getPicture() {
-        return picture;
     }
 
     public double getPrice() {
@@ -60,10 +55,6 @@ public class Food {
         this.name = name;
     }
 
-    public void setPicture(Blob picture) {
-        this.picture = picture;
-    }
-
     public void setPrice(double price) {
         this.price = price;
     }
@@ -90,7 +81,7 @@ public class Food {
     }
 
     public static class FoodBuilder {
-        private Food food;
+        private final Food food;
 
         public FoodBuilder() {
             food = new Food();
@@ -108,11 +99,6 @@ public class Food {
 
         public FoodBuilder name(String name) {
             food.setName(name);
-            return this;
-        }
-
-        public FoodBuilder picture(Blob picture) {
-            food.setPicture(picture);
             return this;
         }
 

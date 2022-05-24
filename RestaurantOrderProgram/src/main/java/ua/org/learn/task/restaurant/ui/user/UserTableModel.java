@@ -29,10 +29,10 @@ public class UserTableModel extends AbstractTableModel {
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         return switch (columnIndex) {
-            case 0, 1, 2, 3, 4 -> String.class;
-            case 5 -> UserRole.class;
-            case 6 -> Date.class;
-            case 7 -> Boolean.class;
+            case 0, 1, 2, 3, 6 -> String.class;
+            case 4 -> UserRole.class;
+            case 5-> Boolean.class;
+            case 7 -> Date.class;
             default -> null;
         };
     }
@@ -44,10 +44,10 @@ public class UserTableModel extends AbstractTableModel {
             case 1 -> Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_SURNAME);
             case 2 -> Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_LOGIN);
             case 3 -> Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_PASSWORD);
-            case 4 -> Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_COMMON_UPDATED_BY);
-            case 5 -> Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_ROLE);
-            case 6 -> Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_COMMON_UPDATED_ON);
-            case 7 -> Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_ACTIVE);
+            case 4 -> Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_ROLE);
+            case 5 -> Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_USER_ACTIVE);
+            case 6 -> Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_COMMON_UPDATED_BY);
+            case 7 -> Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_COLUMN_COMMON_UPDATED_ON);
             default -> null;
         };
     }
@@ -59,10 +59,10 @@ public class UserTableModel extends AbstractTableModel {
             case 1 -> users.get(rowIndex).getSurname();
             case 2 -> users.get(rowIndex).getLogin();
             case 3 -> users.get(rowIndex).getPassword();
-            case 4 -> users.get(rowIndex).getUpdatedBy();
-            case 5 -> users.get(rowIndex).getRole();
-            case 6 -> users.get(rowIndex).getUpdatedOn();
-            case 7 -> users.get(rowIndex).getActive();
+            case 4 -> users.get(rowIndex).getRole();
+            case 5 -> users.get(rowIndex).getActive();
+            case 6 -> users.get(rowIndex).getUpdatedBy();
+            case 7 -> users.get(rowIndex).getUpdatedOn();
             default -> null;
         };
     }
