@@ -50,7 +50,7 @@ public class UserDao {
         return getAllUsers().stream().filter(user -> user.getId() == id).findFirst().orElse(null);
     }
 
-    public static User getUserByLogin(String login) throws ClassNotFoundException, SQLException {
+    public static User getUserByLogin(String login) {
         return getAllUsers().stream().filter(user -> user.getLogin().equalsIgnoreCase(login)).findFirst().orElse(null);
     }
 

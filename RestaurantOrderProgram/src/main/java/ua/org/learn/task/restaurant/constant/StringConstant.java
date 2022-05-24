@@ -1,6 +1,8 @@
 package ua.org.learn.task.restaurant.constant;
 
 public interface StringConstant {
+    String BUNDLE_LABEL_BUTTON_CREATE = "label.button.create";
+    String BUNDLE_LABEL_BUTTON_SAVE = "label.button.save";
     String BUNDLE_LABEL_BUTTON_SIGN_IN = "label.button.sign.in";
     String BUNDLE_LABEL_BUTTON_USER_ADD = "label.button.user.add";
     String BUNDLE_LABEL_BUTTON_USER_EDIT = "label.button.user.edit";
@@ -15,10 +17,17 @@ public interface StringConstant {
     String BUNDLE_LABEL_COLUMN_USER_ROLE = "label.column.user.role";
     String BUNDLE_LABEL_COLUMN_USER_SURNAME = "label.column.user.surname";
     String BUNDLE_LABEL_ERROR = "label.error";
+    String BUNDLE_LABEL_FIELD_ACTIVE = "label.field.active";
     String BUNDLE_LABEL_FIELD_LOGIN = "label.field.login";
     String BUNDLE_LABEL_FIELD_LANGUAGE = "label.field.language";
     String BUNDLE_LABEL_FIELD_PASSWORD = "label.field.password";
+    String BUNDLE_LABEL_FIELD_ROLE = "label.field.role";
+    String BUNDLE_LABEL_FIELD_USER_NAME = "label.field.user.name";
+    String BUNDLE_LABEL_FIELD_USER_SURNAME = "label.field.user.surname";
     String BUNDLE_LABEL_FORM_LOGIN = "label.form.login";
+    String BUNDLE_LABEL_FORM_MAIN = "label.form.main";
+    String BUNDLE_LABEL_FORM_USER_CREATE= "label.form.user.create";
+    String BUNDLE_LABEL_FORM_USER_EDIT = "label.form.user.edit";
     String BUNDLE_LABEL_MENU_FOOD = "label.menu.food";
     String BUNDLE_LABEL_MENU_FOOD_LIST = "label.menu.food.list";
     String BUNDLE_LABEL_MENU_ORDER = "label.menu.order";
@@ -28,6 +37,8 @@ public interface StringConstant {
     String BUNDLE_LABEL_MENU_USER_EXIT = "label.menu.user.exit";
     String BUNDLE_LABEL_MENU_USER_LIST = "label.menu.user.list";
     String BUNDLE_LABEL_PANEL_STATUS_LOGGED = "label.panel.status.logged";
+    String BUNDLE_LABEL_WARNING = "label.warning";
+    String BUNDLE_MESSAGE_FIELD_CANNOT_BE_EMPTY = "message.field.cannot.be.empty";
     String BUNDLE_MESSAGE_USER_LOGIN_WRONG = "message.user.login.wrong";
 
     String COLUMN_CUSTOMER = "CUSTOMER";

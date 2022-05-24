@@ -3,8 +3,8 @@ package ua.org.learn.task.restaurant.ui.form;
 import ua.org.learn.task.restaurant.configuration.Configuration;
 import ua.org.learn.task.restaurant.constant.StringConstant;
 import ua.org.learn.task.restaurant.constant.UiConstant;
+import ua.org.learn.task.restaurant.dao.UserDao;
 import ua.org.learn.task.restaurant.model.User;
-import ua.org.learn.task.restaurant.service.UserService;
 import ua.org.learn.task.restaurant.ui.main.MainForm;
 import ua.org.learn.task.restaurant.ui.util.ImageUtil;
 import ua.org.learn.task.restaurant.ui.util.UiComponentUtil;
@@ -15,8 +15,7 @@ import java.util.Locale;
 
 public class LoginForm extends JFrame {
     private static LoginForm instance = null;
-
-    private final JComboBox<String> languageComboBox;
+    
     private final JLabel languageLabel;
     private final JButton loginButton;
     private final JTextField loginField;
@@ -57,7 +56,7 @@ public class LoginForm extends JFrame {
         UiComponentUtil.locateComponent(this, mainPanel, constraint, passwordLabel, passwordField);
 
         languageLabel = UiComponentUtil.createLabel(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_LANGUAGE));
-        languageComboBox = UiComponentUtil.createComboBox("uk", "en");
+        JComboBox<String> languageComboBox = UiComponentUtil.createComboBox("uk", "en");
         languageComboBox.setSelectedItem("en");
         languageComboBox.addItemListener(event -> {
             Configuration.getInstance().loadLanguagePack(new Locale(event.getItem().toString()));
@@ -68,8 +67,8 @@ public class LoginForm extends JFrame {
         loginButton = UiComponentUtil.createButton(
                 Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_SIGN_IN),
                 event -> {
-                    User user = UserService.getInstance().getUserByLoginPassword(loginField.getText(), new String(passwordField.getPassword()));
-                    if (user != null) {
+                    User user = UserDao.getUserByLogin(loginField.getText());
+                    if (user != null && user.getPassword().equals(new String(passwordField.getPassword()))) {
                         MainForm.getInstance().setUser(user);
                         MainForm.getInstance().setVisible(true);
                         LoginForm.this.setVisible(false);
@@ -86,6 +85,20 @@ public class LoginForm extends JFrame {
         mainPanel.setConstraints(loginButton, constraint);
         add(loginButton);
     }
+    public static LoginForm getInstance() {
+        if (instance == null) {
+            instance = new LoginForm();
+        }
+        return instance;
+    }
+
+    @Override
+    public void setVisible(boolean b) {
+        if (b) {
+            clearForm();
+        }
+        super.setVisible(b);
+    }
 
     public void reloadBundle() {
         setTitle(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FORM_LOGIN));
@@ -96,10 +109,8 @@ public class LoginForm extends JFrame {
         MainForm.getInstance().reloadBundle();
     }
 
-    public static LoginForm getInstance() {
-        if (instance == null) {
-            instance = new LoginForm();
-        }
-        return instance;
+    private void clearForm() {
+        loginField.setText(null);
+        passwordField.setText(null);
     }
 }

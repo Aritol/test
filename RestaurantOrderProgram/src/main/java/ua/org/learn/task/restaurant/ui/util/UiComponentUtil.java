@@ -16,9 +16,16 @@ public class UiComponentUtil {
         return button;
     }
 
+    public static JCheckBox createCheckBox(String name) {
+        JCheckBox checkBox = new JCheckBox(name);
+        checkBox.setFont(UiConstant.FONT_PLAIN_16);
+        return checkBox;
+    }
+
+    @SafeVarargs
     public static <T> JComboBox<T> createComboBox(T ... values) {
         JComboBox<T> comboBox = new JComboBox<>();
-        Arrays.stream(values).forEach(item -> comboBox.addItem(item));
+        Arrays.stream(values).forEach(comboBox::addItem);
         comboBox.setFont(UiConstant.FONT_PLAIN_16);
         return comboBox;
     }

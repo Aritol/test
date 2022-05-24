@@ -1,8 +1,10 @@
 package ua.org.learn.task.restaurant.ui.user;
 
+import ua.org.learn.task.restaurant.configuration.Configuration;
+import ua.org.learn.task.restaurant.constant.StringConstant;
+import ua.org.learn.task.restaurant.dao.UserDao;
 import ua.org.learn.task.restaurant.model.User;
 import ua.org.learn.task.restaurant.constant.UserRole;
-import ua.org.learn.task.restaurant.service.UserService;
 import ua.org.learn.task.restaurant.ui.main.MainForm;
 import ua.org.learn.task.restaurant.constant.ModifyType;
 import ua.org.learn.task.restaurant.ui.util.UiComponentUtil;
@@ -21,23 +23,22 @@ public class UserModifyForm extends JFrame {
     private long modifyId;
     private ModifyType modifyType;
 
-    private JLabel loginLabel;
-    private JTextField loginField;
-    private JTextField nameField;
-    private JLabel nameLabel;
-    private JTextField passwordField;
-    private JLabel passwordLabel;
-    private JComboBox<UserRole> roleField;
-    private JLabel roleLabel;
-    private JButton saveButton;
-    private JTextField surnameField;
-    private JLabel surnameLabel;
-    private JCheckBox activeCheckbox;
+    private final JCheckBox activeCheckbox;
+    private final JLabel loginLabel;
+    private final JTextField loginField;
+    private final JTextField nameField;
+    private final JLabel nameLabel;
+    private final JTextField passwordField;
+    private final JLabel passwordLabel;
+    private final JComboBox<UserRole> roleField;
+    private final JLabel roleLabel;
+    private final JButton saveButton;
+    private final JTextField surnameField;
+    private final JLabel surnameLabel;
 
     public UserModifyForm() {
-        setSize(500, 300);
+        setSize(500, 250);
         setResizable(false);
-        setTitle("Login to Restaurant");
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         GridBagLayout mainPanel = new GridBagLayout();
@@ -46,47 +47,44 @@ public class UserModifyForm extends JFrame {
         GridBagConstraints constraint = new GridBagConstraints();
         constraint.fill = GridBagConstraints.BOTH;
 
-        nameLabel = new JLabel("Name");
-        nameField = new JTextField();
+        nameLabel = UiComponentUtil.createLabel(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_USER_NAME));
+        nameField = UiComponentUtil.createTextField();
         UiComponentUtil.locateComponent(this, mainPanel, constraint, nameLabel, nameField);
 
-        surnameLabel = new JLabel("Surname");
-        surnameField = new JTextField();
+        surnameLabel = UiComponentUtil.createLabel(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_USER_SURNAME));
+        surnameField = UiComponentUtil.createTextField();
         UiComponentUtil.locateComponent(this, mainPanel, constraint, surnameLabel, surnameField);
 
-        loginLabel = new JLabel("Login");
-        loginField = new JTextField();
+        loginLabel = UiComponentUtil.createLabel(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_LOGIN));
+        loginField = UiComponentUtil.createTextField();
         UiComponentUtil.locateComponent(this, mainPanel, constraint, loginLabel, loginField);
 
-        passwordLabel = new JLabel("Password");
-        passwordField = new JTextField();
+        passwordLabel = UiComponentUtil.createLabel(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_PASSWORD));
+        passwordField = UiComponentUtil.createTextField();
         UiComponentUtil.locateComponent(this, mainPanel, constraint, passwordLabel, passwordField);
 
-        roleLabel = new JLabel("Role");
-        roleField = new JComboBox<>();
-        roleField.addItem(UserRole.ADMINISTRATOR);
-        roleField.addItem(UserRole.CUSTOMER);
-        roleField.addItem(UserRole.MANAGER);
+        roleLabel = UiComponentUtil.createLabel(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_ROLE));
+        roleField = UiComponentUtil.createComboBox(UserRole.ADMINISTRATOR, UserRole.MANAGER);
         UiComponentUtil.locateComponent(this, mainPanel, constraint, roleLabel, roleField);
 
-        activeCheckbox = new JCheckBox("Is Active User");
+        activeCheckbox = UiComponentUtil.createCheckBox(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_ACTIVE));
         mainPanel.setConstraints(activeCheckbox, constraint);
         add(activeCheckbox);
 
-        saveButton = new JButton("Save");
-        saveButton.addActionListener(event -> {
-            switch (modifyType) {
-                case ADD:
-                    UserService.getInstance().addUser(getModifiedUser());
-                    break;
-                case EDIT:
-                    UserService.getInstance().updateUser(getModifiedUser());
-                    break;
-            }
-            UserModifyForm.this.setVisible(false);
-            MainForm.getInstance().updateUserList();
-            MainForm.getInstance().setVisible(true);
-        });
+        saveButton = UiComponentUtil.createButton(
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_SAVE),
+                event -> {
+                    if (validateFields()) {
+                        switch (modifyType) {
+                            case ADD -> UserDao.createUser(getModifiedUser());
+                            case EDIT -> UserDao.updateUser(getModifiedUser());
+                        }
+                        UserModifyForm.this.setVisible(false);
+                        MainForm.getInstance().updateUserList();
+                        MainForm.getInstance().setVisible(true);
+                    }
+                }
+        );
         mainPanel.setConstraints(saveButton, constraint);
         add(saveButton);
 
@@ -135,6 +133,23 @@ public class UserModifyForm extends JFrame {
         return instance;
     }
 
+    public void reloadBundle() {
+        setTitle(Configuration.getInstance().getBundleProperty(modifyType == ModifyType.ADD
+                ? StringConstant.BUNDLE_LABEL_FORM_USER_CREATE
+                : StringConstant.BUNDLE_LABEL_FORM_USER_EDIT
+        ));
+        nameLabel.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_USER_NAME));
+        surnameLabel.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_USER_SURNAME));
+        loginLabel.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_LOGIN));
+        passwordLabel.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_PASSWORD));
+        roleLabel.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_ROLE));
+        activeCheckbox.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_ACTIVE));
+        saveButton.setText(Configuration.getInstance().getBundleProperty(modifyType == ModifyType.ADD
+                ? StringConstant.BUNDLE_LABEL_BUTTON_CREATE
+                : StringConstant.BUNDLE_LABEL_BUTTON_SAVE
+        ));
+    }
+
     public void setCurrentUser(User user) {
         currentUser = user;
     }
@@ -142,15 +157,10 @@ public class UserModifyForm extends JFrame {
     public void setModifyType(ModifyType type) {
         modifyType = type;
         switch (modifyType) {
-            case ADD:
-                setTitle("New User");
-                loginField.setEnabled(Boolean.TRUE);
-                break;
-            case EDIT:
-                setTitle("Edit user");
-                loginField.setEnabled(Boolean.FALSE);
-                break;
+            case ADD -> loginField.setEnabled(Boolean.TRUE);
+            case EDIT -> loginField.setEnabled(Boolean.FALSE);
         }
+        reloadBundle();
     }
 
     public void setModifiedUser(User user) {
@@ -185,5 +195,26 @@ public class UserModifyForm extends JFrame {
                 .updatedBy(currentUser.getLogin())
                 .updatedOn(new Date(Instant.now().toEpochMilli()))
                 .build();
+    }
+
+    private boolean validateFields() {
+        return checkFieldValue(nameField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_USER_NAME))
+                && checkFieldValue(surnameField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_USER_SURNAME))
+                && checkFieldValue(loginField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_LOGIN))
+                && checkFieldValue(passwordField.getText(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_PASSWORD))
+                && checkFieldValue(roleField.getSelectedItem(), Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FIELD_ROLE));
+    }
+
+    private boolean checkFieldValue(Object value, String name) {
+        if (value == null || value.equals("")) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    String.format(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_MESSAGE_FIELD_CANNOT_BE_EMPTY), name),
+                    Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_WARNING),
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+        return true;
     }
 }

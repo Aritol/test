@@ -8,19 +8,18 @@ import ua.org.learn.task.restaurant.ui.form.LoginForm;
 import ua.org.learn.task.restaurant.ui.user.UserPanel;
 import ua.org.learn.task.restaurant.ui.util.ImageUtil;
 
+import javax.print.DocFlavor;
 import javax.swing.*;
 import java.awt.*;
 
 public class MainForm extends JFrame {
     private static MainForm instance = null;
 
-    private User user;
-
-    private JPanel foodPanel;
-    private MainMenuBar menuBar;
-    private JPanel orderPanel;
-    private MainFormStatusPanel statusPanel;
-    private UserPanel userPanel;
+    private final JPanel foodPanel;
+    private final MainMenuBar menuBar;
+    private final JPanel orderPanel;
+    private final MainFormStatusPanel statusPanel;
+    private final UserPanel userPanel;
 
     private MainForm() {
         super();
@@ -32,10 +31,9 @@ public class MainForm extends JFrame {
                 setIconImage(formIcon);
             }
         }
+        setTitle(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FORM_MAIN));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(false);
-        setBackground(UiConstant.BACKGROUND_COMMON);
-        setForeground(UiConstant.BACKGROUND_COMMON);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         menuBar = new MainMenuBar(this);
@@ -61,22 +59,23 @@ public class MainForm extends JFrame {
     public void foodList() {
         clearForm();
         add(foodPanel, BorderLayout.CENTER);
-        setVisible(true);
+        getRootPane().updateUI();
     }
 
     public void orderHistory() {
         clearForm();
         add(orderPanel, BorderLayout.CENTER);
-        setVisible(true);
+        getRootPane().updateUI();
     }
 
     public void orderList() {
         clearForm();
         add(orderPanel, BorderLayout.CENTER);
-        setVisible(true);
+        getRootPane().updateUI();
     }
 
     public void reloadBundle() {
+        setTitle(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FORM_MAIN));
         menuBar.reloadBundle();
         statusPanel.reloadBundle();
         userPanel.reloadBundle();
@@ -87,7 +86,6 @@ public class MainForm extends JFrame {
     }
 
     public void setUser(User user) {
-        this.user = user;
         if (user != null) {
             menuBar.setUserPermission(user);
             statusPanel.setUser(user);
@@ -103,13 +101,12 @@ public class MainForm extends JFrame {
     public void userList() {
         clearForm();
         add(userPanel, BorderLayout.CENTER);
-        setVisible(true);
+        getRootPane().updateUI();
     }
 
     private void clearForm() {
         remove(foodPanel);
         remove(orderPanel);
         remove(userPanel);
-        setVisible(false);
     }
 }

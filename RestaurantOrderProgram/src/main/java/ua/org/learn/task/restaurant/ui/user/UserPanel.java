@@ -2,8 +2,8 @@ package ua.org.learn.task.restaurant.ui.user;
 
 import ua.org.learn.task.restaurant.configuration.Configuration;
 import ua.org.learn.task.restaurant.constant.StringConstant;
+import ua.org.learn.task.restaurant.dao.UserDao;
 import ua.org.learn.task.restaurant.model.User;
-import ua.org.learn.task.restaurant.service.UserService;
 import ua.org.learn.task.restaurant.ui.main.MainForm;
 import ua.org.learn.task.restaurant.constant.ModifyType;
 import ua.org.learn.task.restaurant.ui.util.UiComponentUtil;
@@ -62,7 +62,7 @@ public class UserPanel extends JPanel {
                 event -> {
                     User selectedUser = userTableModel.getUserByRow(userTable.getSelectedRow());
                     if (selectedUser != null) {
-                        UserService.getInstance().removeUserById(selectedUser.getId());
+                        UserDao.removeUserById(selectedUser.getId());
                         userTableModel.fireTableDataChanged();
                     }
                 }
@@ -82,5 +82,6 @@ public class UserPanel extends JPanel {
         addUser.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_USER_ADD));
         editUser.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_USER_EDIT));
         removeUser.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_USER_REMOVE));
+        userTable.createDefaultColumnsFromModel();
     }
 }
