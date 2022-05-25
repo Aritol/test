@@ -1,0 +1,1 @@
+java -cp ./;restaurant-1.0.0.jar;sqlite-jdbc-3.36.0.3.jar ua.org.learn.task.restaurant.runner.RestaurantRunner
