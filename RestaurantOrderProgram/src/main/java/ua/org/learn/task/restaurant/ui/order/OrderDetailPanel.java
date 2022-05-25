@@ -6,6 +6,8 @@ import ua.org.learn.task.restaurant.constant.State;
 import ua.org.learn.task.restaurant.constant.StringConstant;
 import ua.org.learn.task.restaurant.dao.FoodAssignmentDao;
 import ua.org.learn.task.restaurant.dao.FoodDao;
+import ua.org.learn.task.restaurant.dao.OrderDao;
+import ua.org.learn.task.restaurant.model.Food;
 import ua.org.learn.task.restaurant.model.FoodAssignment;
 import ua.org.learn.task.restaurant.model.Order;
 import ua.org.learn.task.restaurant.model.User;
@@ -16,6 +18,10 @@ import ua.org.learn.task.restaurant.ui.util.UiComponentUtil;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.sql.Date;
 import java.time.Instant;
 
@@ -68,6 +74,29 @@ public class OrderDetailPanel extends JPanel {
                 Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_CHECK_PRINT),
                 event -> {
                     if (selectedOrder != null) {
+                        if (selectedOrder.getState() != State.CANCELLED || selectedOrder.getState() != State.COMPLETE) {
+                            selectedOrder.setState(State.COMPLETE);
+                            OrderDao.updateOrder(selectedOrder);
+                        }
+
+                        JFileChooser fileChooser = new JFileChooser();
+                        int option = fileChooser.showSaveDialog(this);
+                        if (option == JFileChooser.APPROVE_OPTION) {
+                            try(PrintWriter writer = new PrintWriter(fileChooser.getSelectedFile())) {
+                                writer.println(selectedOrder.getDateOn());
+                                writer.println(selectedOrder.getExecutor());
+                                FoodAssignmentDao.getFoodAssignmentByOrderId(selectedOrder.getId())
+                                        .stream()
+                                        .forEach(assignment -> {
+                                            Food food = FoodDao.getFoodById(assignment.getFoodId());
+                                            writer.println(food.getName() + "\t\t" + food.getPrice());
+                                        });
+                                writer.println(totalField.getText());
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
                     }
                 }
         );

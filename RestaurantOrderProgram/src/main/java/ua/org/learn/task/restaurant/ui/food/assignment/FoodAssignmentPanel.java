@@ -53,6 +53,10 @@ public class FoodAssignmentPanel extends JPanel {
         userActionPanel.add(assignFood);
     }
 
+    public void modify() {
+        foodTableModel.fireTableDataChanged();
+    }
+
     public void reloadBundle() {
         assignFood.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_FOOD_ASSIGN));
         foodTable.createDefaultColumnsFromModel();

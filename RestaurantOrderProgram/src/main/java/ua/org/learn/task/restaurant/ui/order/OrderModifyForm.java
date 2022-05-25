@@ -100,6 +100,7 @@ public class OrderModifyForm extends JFrame {
 
     public void modify() {
         orderDetailPanel.modify();
+        foodAssignmentPanel.modify();
     }
 
     public void reloadBundle() {

@@ -6,6 +6,7 @@ import ua.org.learn.task.restaurant.constant.UiConstant;
 import ua.org.learn.task.restaurant.model.User;
 import ua.org.learn.task.restaurant.ui.food.FoodPanel;
 import ua.org.learn.task.restaurant.ui.form.LoginForm;
+import ua.org.learn.task.restaurant.ui.order.OrderModifyForm;
 import ua.org.learn.task.restaurant.ui.order.OrderPanel;
 import ua.org.learn.task.restaurant.ui.user.UserPanel;
 import ua.org.learn.task.restaurant.ui.util.ImageUtil;
@@ -137,6 +138,7 @@ public class MainForm extends JFrame {
 
     public void updateFoodList() {
         foodPanel.modelUpdate();
+        OrderModifyForm.getInstance().modify();
     }
 
     public void updateUserList() {
