@@ -47,6 +47,16 @@ public class FoodAssignmentPanel extends JPanel {
                     if (selectedFood != null) {
                         FoodAssignmentDao.createFoodAssignment(createNewFoodAssignment(selectedFood));
                         OrderModifyForm.getInstance().modify();
+                        JOptionPane.showMessageDialog(
+                                this,
+                                String.format(
+                                        Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_MESSAGE_FOOD_ASSIGN),
+                                        selectedFood.getName(),
+                                        currentOrder.getId()
+                                ),
+                                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_INFO),
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
                     }
                 }
         );

@@ -66,7 +66,8 @@ public class AssignmentModifyForm extends JFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                MainForm.getInstance().setVisible(true);
+                OrderModifyForm.getInstance().setVisible(true);
+                setVisible(false);
             }
 
             @Override

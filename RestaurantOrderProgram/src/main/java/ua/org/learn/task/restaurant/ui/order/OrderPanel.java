@@ -54,6 +54,15 @@ public class OrderPanel extends JPanel {
                     orderTableModel.fireTableDataChanged();
                     Order selectedOrder = OrderDao.getLastOrder();
                     if (selectedOrder != null) {
+                        JOptionPane.showMessageDialog(
+                                this,
+                                String.format(
+                                        Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_MESSAGE_ORDER_CREATE),
+                                        selectedOrder.getId()
+                                ),
+                                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_INFO),
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
                         modifyOrder(selectedOrder, ModifyType.EDIT);
                     }
                 }

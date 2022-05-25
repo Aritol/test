@@ -63,8 +63,8 @@ public class AssignmentPanel extends JPanel {
     }
 
     public void reloadBundle() {
-        changeState.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_ORDER_CREATE));
-        removeFood.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_ORDER_DETAIL));
+        changeState.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_CHANGE_STATE));
+        removeFood.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_FOOD_REMOVE));
         assignmentTable.createDefaultColumnsFromModel();
         AssignmentModifyForm.getInstance().reloadBundle();
     }

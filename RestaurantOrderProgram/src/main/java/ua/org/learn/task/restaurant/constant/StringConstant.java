@@ -56,6 +56,7 @@ public interface StringConstant {
     String BUNDLE_LABEL_FORM_ORDER_EDIT = "label.form.order.edit";
     String BUNDLE_LABEL_FORM_USER_CREATE= "label.form.user.create";
     String BUNDLE_LABEL_FORM_USER_EDIT = "label.form.user.edit";
+    String BUNDLE_LABEL_INFO = "label.info";
     String BUNDLE_LABEL_MENU_FOOD = "label.menu.food";
     String BUNDLE_LABEL_MENU_FOOD_LIST = "label.menu.food.list";
     String BUNDLE_LABEL_MENU_ORDER = "label.menu.order";
@@ -67,6 +68,8 @@ public interface StringConstant {
     String BUNDLE_LABEL_PANEL_STATUS_LOGGED = "label.panel.status.logged";
     String BUNDLE_LABEL_WARNING = "label.warning";
     String BUNDLE_MESSAGE_FIELD_CANNOT_BE_EMPTY = "message.field.cannot.be.empty";
+    String BUNDLE_MESSAGE_FOOD_ASSIGN = "message.food.assign";
+    String BUNDLE_MESSAGE_ORDER_CREATE = "message.order.create";
     String BUNDLE_MESSAGE_USER_LOGIN_WRONG = "message.user.login.wrong";
 
     String COLUMN_CUSTOMER = "CUSTOMER";
@@ -90,10 +93,6 @@ public interface StringConstant {
     String COLUMN_UPDATED_BY = "UPDATED_BY";
     String COLUMN_UPDATED_ON = "UPDATED_ON";
     String COLUMN_WEIGHT = "WEIGHT";
-
-
-    
-    String DEFAULT_BUNDLE = "restaurant";
 
     String MESSAGE_CANNOT_LOAD_RESOURCES = "Cannot load inner resource(s)";
 
