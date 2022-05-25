@@ -1,6 +1,8 @@
 package ua.org.learn.task.restaurant.constant;
 
 public interface StringConstant {
+    String BUNDLE_LABEL_BUTTON_CHANGE_STATE = "label.button.change.state";
+    String BUNDLE_LABEL_BUTTON_CHECK_PRINT = "label.button.check.print";
     String BUNDLE_LABEL_BUTTON_CREATE = "label.button.create";
     String BUNDLE_LABEL_BUTTON_FOOD_ADD = "label.button.food.add";
     String BUNDLE_LABEL_BUTTON_FOOD_ASSIGN = "label.button.food.assign";
@@ -36,11 +38,14 @@ public interface StringConstant {
     String BUNDLE_LABEL_FIELD_FOOD_NAME = "label.field.food.name";
     String BUNDLE_LABEL_FIELD_FOOD_PRICE = "label.field.food.price";
     String BUNDLE_LABEL_FIELD_FOOD_WEIGHT = "label.field.food.weight";
+    String BUNDLE_LABEL_FIELD_GRATUITY = "label.field.gratuity";
     String BUNDLE_LABEL_FIELD_LOGIN = "label.field.login";
     String BUNDLE_LABEL_FIELD_LANGUAGE = "label.field.language";
     String BUNDLE_LABEL_FIELD_PASSWORD = "label.field.password";
     String BUNDLE_LABEL_FIELD_ROLE = "label.field.role";
     String BUNDLE_LABEL_FIELD_STATE = "label.field.state";
+    String BUNDLE_LABEL_FIELD_TABLE_NUMBER = "label.field.table.number";
+    String BUNDLE_LABEL_FIELD_TOTAL = "label.field.total";
     String BUNDLE_LABEL_FIELD_USER_NAME = "label.field.user.name";
     String BUNDLE_LABEL_FIELD_USER_SURNAME = "label.field.user.surname";
     String BUNDLE_LABEL_FORM_FOOD_CREATE= "label.form.food.create";

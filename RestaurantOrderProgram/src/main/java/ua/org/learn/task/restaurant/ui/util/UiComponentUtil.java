@@ -89,7 +89,7 @@ public class UiComponentUtil {
         return field;
     }
 
-    public static void locateComponent(JFrame form, GridBagLayout layout, GridBagConstraints constraint, JLabel label, Component field) {
+    public static void locateComponent(Container form, GridBagLayout layout, GridBagConstraints constraint, JLabel label, Component field) {
         constraint.weightx = 1;
         constraint.gridwidth = GridBagConstraints.RELATIVE;
         layout.setConstraints(label, constraint);

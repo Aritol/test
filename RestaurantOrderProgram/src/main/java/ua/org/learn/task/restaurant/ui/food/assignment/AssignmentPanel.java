@@ -6,6 +6,7 @@ import ua.org.learn.task.restaurant.dao.FoodAssignmentDao;
 import ua.org.learn.task.restaurant.model.FoodAssignment;
 import ua.org.learn.task.restaurant.model.Order;
 import ua.org.learn.task.restaurant.model.User;
+import ua.org.learn.task.restaurant.ui.order.OrderModifyForm;
 import ua.org.learn.task.restaurant.ui.util.UiComponentUtil;
 
 import javax.swing.*;
@@ -31,7 +32,7 @@ public class AssignmentPanel extends JPanel {
         add(userActionPanel);
 
         removeFood = UiComponentUtil.createButton(
-                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_ORDER_DETAIL),
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_FOOD_REMOVE),
                 event -> {
                     FoodAssignment selectedAssignment = assignmentTableModel.getFoodAssignmentByRow(assignmentTable.getSelectedRow());
                     if (selectedAssignment != null) {
@@ -43,14 +44,15 @@ public class AssignmentPanel extends JPanel {
         userActionPanel.add(removeFood);
 
         changeState = UiComponentUtil.createButton(
-                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_ORDER_CREATE),
+                Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_CHANGE_STATE),
                 event -> {
-//                    OrderDao.createOrder(createNewOrder());
-//                    orderTableModel.fireTableDataChanged();
-//                    Order selectedOrder = OrderDao.getLastOrder();
-//                    if (selectedOrder != null) {
-//                        modifyOrder(selectedOrder, ModifyType.EDIT);
-//                    }
+                    FoodAssignment selectedAssignment = assignmentTableModel.getFoodAssignmentByRow(assignmentTable.getSelectedRow());
+                    if (selectedAssignment != null) {
+                        AssignmentModifyForm.getInstance().setCurrentUser(currentUser);
+                        AssignmentModifyForm.getInstance().setFoodAssignment(selectedAssignment);
+                        AssignmentModifyForm.getInstance().setVisible(true);
+                        OrderModifyForm.getInstance().setVisible(false);
+                    }
                 }
         );
         userActionPanel.add(changeState);
@@ -64,6 +66,12 @@ public class AssignmentPanel extends JPanel {
         changeState.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_ORDER_CREATE));
         removeFood.setText(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_ORDER_DETAIL));
         assignmentTable.createDefaultColumnsFromModel();
+        AssignmentModifyForm.getInstance().reloadBundle();
+    }
+
+    public void setDetail(boolean isDetail) {
+        changeState.setEnabled(!isDetail);
+        removeFood.setEnabled(!isDetail);
     }
 
     public void setOrder(Order order) {

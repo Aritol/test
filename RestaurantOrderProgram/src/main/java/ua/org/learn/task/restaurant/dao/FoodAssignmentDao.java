@@ -44,7 +44,7 @@ public class FoodAssignmentDao {
     }
 
     public static List<FoodAssignment> getFoodAssignmentByOrderId(long orderId) {
-        return getAllOrders().stream().filter(assignment -> assignment.getOrderId() != orderId).toList();
+        return getAllOrders().stream().filter(assignment -> assignment.getOrderId() == orderId).toList();
     }
 
     public static void removeFoodAssignmentById(long id) {

@@ -50,9 +50,9 @@ public class AssignmentModifyForm extends JFrame {
                 event -> {
                     foodAssignment.setState((State) stateField.getSelectedItem());
                     FoodAssignmentDao.updateFoodAssignment(foodAssignment);
-                    AssignmentModifyForm.this.setVisible(false);
                     OrderModifyForm.getInstance().modify();
-                    MainForm.getInstance().setVisible(true);
+                    OrderModifyForm.getInstance().setVisible(true);
+                    setVisible(false);
                 }
         );
         mainPanel.setConstraints(saveButton, constraint);

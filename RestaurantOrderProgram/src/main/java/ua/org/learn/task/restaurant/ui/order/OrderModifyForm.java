@@ -4,6 +4,7 @@ import ua.org.learn.task.restaurant.configuration.Configuration;
 import ua.org.learn.task.restaurant.constant.ModifyType;
 import ua.org.learn.task.restaurant.constant.StringConstant;
 import ua.org.learn.task.restaurant.constant.UserRole;
+import ua.org.learn.task.restaurant.dao.OrderDao;
 import ua.org.learn.task.restaurant.dao.UserDao;
 import ua.org.learn.task.restaurant.model.Order;
 import ua.org.learn.task.restaurant.model.User;
@@ -26,6 +27,7 @@ import java.time.Instant;
 public class OrderModifyForm extends JFrame {
     private static OrderModifyForm instance = null;
 
+    private Order currentOrder;
     private ModifyType modifyType;
 
     private final FoodAssignmentPanel foodAssignmentPanel;
@@ -105,14 +107,19 @@ public class OrderModifyForm extends JFrame {
                 ? StringConstant.BUNDLE_LABEL_FORM_ORDER_DETAIL
                 : StringConstant.BUNDLE_LABEL_FORM_ORDER_EDIT));
         foodAssignmentPanel.reloadBundle();
+        orderDetailPanel.reloadBundle();
     }
 
     public void setModifyType(ModifyType type) {
         clearForm();
         modifyType = type;
         switch (modifyType) {
-            case DETAIL -> add(orderDetailPanel, BorderLayout.CENTER);
+            case DETAIL -> {
+                orderDetailPanel.setDetail(true);
+                add(orderDetailPanel, BorderLayout.CENTER);
+            }
             case EDIT -> {
+                orderDetailPanel.setDetail(false);
                 add(foodAssignmentPanel, BorderLayout.WEST);
                 add(orderDetailPanel, BorderLayout.EAST);
             }
@@ -122,6 +129,7 @@ public class OrderModifyForm extends JFrame {
     }
 
     public void setOrder(Order order) {
+        currentOrder = order;
         foodAssignmentPanel.setOrder(order);
         orderDetailPanel.setOrder(order);
     }
@@ -133,7 +141,8 @@ public class OrderModifyForm extends JFrame {
 
     private void closeForm() {
         if (modifyType == ModifyType.EDIT) {
-
+            orderDetailPanel.updateFields();
+            OrderDao.updateOrder(currentOrder);
         }
         MainForm.getInstance().setVisible(true);
     }
