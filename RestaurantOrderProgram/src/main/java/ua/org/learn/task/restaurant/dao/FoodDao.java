@@ -43,10 +43,6 @@ public class FoodDao {
         return getAllFoods().stream().filter(food -> food.getId() == id).findFirst().orElse(null);
     }
 
-    public static Food getFoodByName(String name) {
-        return getAllFoods().stream().filter(food -> food.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
-    }
-
     public static void removeFoodById(long id) {
         try (Connection connection = DBUtil.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(REMOVE_FOOD)) {

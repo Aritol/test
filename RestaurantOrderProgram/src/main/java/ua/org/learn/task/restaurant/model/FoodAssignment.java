@@ -3,17 +3,23 @@ package ua.org.learn.task.restaurant.model;
 import ua.org.learn.task.restaurant.constant.State;
 import ua.org.learn.task.restaurant.constant.StringConstant;
 
+import java.sql.Date;
 import java.time.Instant;
 
 public class FoodAssignment {
     private long foodId;
+    private long id;
     private long orderId;
     private State state;
     private String updatedBy;
-    private Instant updatedOn;
+    private Date updatedOn;
 
     public long getFoodId() {
         return foodId;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public long getOrderId() {
@@ -28,12 +34,16 @@ public class FoodAssignment {
         return updatedBy;
     }
 
-    public Instant getUpdatedOn() {
+    public Date getUpdatedOn() {
         return updatedOn;
     }
 
     public void setFoodId(long foodId) {
         this.foodId = foodId;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setOrderId(long orderId) {
@@ -48,7 +58,7 @@ public class FoodAssignment {
         this.updatedBy = updatedBy;
     }
 
-    public void setUpdatedOn(Instant updatedOn) {
+    public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
 
@@ -73,6 +83,11 @@ public class FoodAssignment {
             return this;
         }
 
+        public FoodAssignmentBuilder id(long id) {
+            foodAssignment.setId(id);
+            return this;
+        }
+
         public FoodAssignmentBuilder orderId(long orderId) {
             foodAssignment.setOrderId(orderId);
             return this;
@@ -88,7 +103,7 @@ public class FoodAssignment {
             return this;
         }
 
-        public FoodAssignmentBuilder updatedOn(Instant updatedOn) {
+        public FoodAssignmentBuilder updatedOn(Date updatedOn) {
             foodAssignment.setUpdatedOn(updatedOn);
             return this;
         }

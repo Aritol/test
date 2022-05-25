@@ -2,21 +2,29 @@ package ua.org.learn.task.restaurant.dao;
 
 import ua.org.learn.task.restaurant.constant.State;
 import ua.org.learn.task.restaurant.constant.StringConstant;
-import ua.org.learn.task.restaurant.constant.UserRole;
 import ua.org.learn.task.restaurant.model.Order;
-import ua.org.learn.task.restaurant.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDao {
-    private final static String SELECT_ALL_ORDERS = "SELECT * FROM ORDER";
-    private final static String INSERT_ORDER = "INSERT INTO ORDER (CUSTOMER, DATE_ON, EXECUTOR, GRATUITY, STATE, TABLE_NUMBER, UPDATED_BY, " +
+    private final static String SELECT_ALL_ORDERS = "SELECT * FROM 'ORDER' ORDER BY DATE_ON DESC";
+    private final static String INSERT_ORDER = "INSERT INTO 'ORDER' (CUSTOMER, DATE_ON, EXECUTOR, GRATUITY, STATE, TABLE_NUMBER, UPDATED_BY, " +
             "UPDATED_ON) VALUES(?,?,?,?,?,?,?,?)";
-    private final static String UPDATE_ORDER = "UPDATE ORDER SET CUSTOMER = ?, DATE_ON = ?, EXECUTOR = ?, GRATUITY = ?, STATE = ?, " +
+    private final static String UPDATE_ORDER = "UPDATE 'ORDER' SET CUSTOMER = ?, DATE_ON = ?, EXECUTOR = ?, GRATUITY = ?, STATE = ?, " +
             "TABLE_NUMBER = ?, UPDATED_BY = ?, UPDATED_ON = ? WHERE ID = ?";
-    private final static String REMOVE_ORDER = "DELETE FROM ORDER WHERE ID =?";
+
+    public static void createOrder(Order order) {
+        try (Connection connection = DBUtil.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(INSERT_ORDER)) {
+            setStatementParameters(statement, order);
+            statement.executeUpdate();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static List<Order> getAllOrders() {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = DBUtil.getInstance().getConnection();
@@ -31,32 +39,20 @@ public class OrderDao {
         return orders;
     }
 
-    public static void createOrder(Order order) {
-        try (Connection connection = DBUtil.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(INSERT_ORDER)) {
-            setStatementParameters(statement, order);
-            statement.executeUpdate();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
+    public static List<Order> getActiveOrders() {
+        return getAllOrders().stream().filter(order -> order.getState() != State.COMPLETE && order.getState() != State.CANCELLED).toList();
     }
 
-    public static Order getUserById(long id) {
-        return getAllOrders().stream().filter(user -> user.getId() == id).findFirst().orElse(null);
+    public static List<Order> getHistory() {
+        return getAllOrders().stream().filter(order -> order.getState() == State.COMPLETE || order.getState() == State.CANCELLED).toList();
+    }
+
+    public static Order getLastOrder() {
+        return getAllOrders().stream().max((order1, order2) -> (int)(order1.getId() - order2.getId())).orElse(null);
     }
 
     public static Order getOrderById(long id) throws ClassNotFoundException, SQLException {
         return getAllOrders().stream().filter(user -> user.getId() == id).findFirst().orElse(null);
-    }
-
-    public static void removeOrderById(long id) {
-        try (Connection connection = DBUtil.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(REMOVE_ORDER)) {
-            statement.setLong(1, id);
-            statement.executeUpdate();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void updateOrder(Order order) {
@@ -75,6 +71,7 @@ public class OrderDao {
                 .id(resultSet.getLong(StringConstant.COLUMN_ID))
                 .customer(resultSet.getString(StringConstant.COLUMN_CUSTOMER))
                 .dateOn(resultSet.getDate(StringConstant.COLUMN_DATE_ON))
+                .executor(resultSet.getString(StringConstant.COLUMN_EXECUTOR))
                 .gratuity(resultSet.getDouble(StringConstant.COLUMN_GRATUITY))
                 .state(State.getStateByName(resultSet.getString(StringConstant.COLUMN_STATE)))
                 .tableNumber(resultSet.getInt(StringConstant.COLUMN_TABLE_NUMBER))

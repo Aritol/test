@@ -6,6 +6,7 @@ import ua.org.learn.task.restaurant.constant.UiConstant;
 import ua.org.learn.task.restaurant.model.User;
 import ua.org.learn.task.restaurant.ui.food.FoodPanel;
 import ua.org.learn.task.restaurant.ui.form.LoginForm;
+import ua.org.learn.task.restaurant.ui.order.OrderPanel;
 import ua.org.learn.task.restaurant.ui.user.UserPanel;
 import ua.org.learn.task.restaurant.ui.util.ImageUtil;
 
@@ -20,7 +21,7 @@ public class MainForm extends JFrame {
 
     private final FoodPanel foodPanel;
     private final MainMenuBar menuBar;
-    private final JPanel orderPanel;
+    private final OrderPanel orderPanel;
     private final MainFormStatusPanel statusPanel;
     private final UserPanel userPanel;
 
@@ -41,7 +42,7 @@ public class MainForm extends JFrame {
         menuBar = new MainMenuBar(this);
         setJMenuBar(menuBar);
 
-        orderPanel = new JPanel();
+        orderPanel = new OrderPanel();
 
         foodPanel = new FoodPanel();
 
@@ -103,12 +104,14 @@ public class MainForm extends JFrame {
 
     public void orderHistory() {
         clearForm();
+        orderPanel.setHistoryMode(true);
         add(orderPanel, BorderLayout.CENTER);
         getRootPane().updateUI();
     }
 
     public void orderList() {
         clearForm();
+        orderPanel.setHistoryMode(false);
         add(orderPanel, BorderLayout.CENTER);
         getRootPane().updateUI();
     }
@@ -117,8 +120,19 @@ public class MainForm extends JFrame {
         setTitle(Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_FORM_MAIN));
         foodPanel.reloadBundle();
         menuBar.reloadBundle();
+        orderPanel.reloadBundle();
         statusPanel.reloadBundle();
         userPanel.reloadBundle();
+    }
+
+    public void setUser(User user) {
+        if (user != null) {
+            foodPanel.setUser(user);
+            menuBar.setUserPermission(user);
+            orderPanel.setUser(user);
+            statusPanel.setUser(user);
+            userPanel.setUser(user);
+        }
     }
 
     public void updateFoodList() {
@@ -129,16 +143,8 @@ public class MainForm extends JFrame {
         userPanel.modelUpdate();
     }
 
-    public void setUser(User user) {
-        if (user != null) {
-            foodPanel.setUser(user);
-            menuBar.setUserPermission(user);
-            statusPanel.setUser(user);
-            userPanel.setUser(user);
-        }
-    }
-
     public void userExit() {
+        clearForm();
         setVisible(false);
         LoginForm.getInstance().setVisible(true);
     }
