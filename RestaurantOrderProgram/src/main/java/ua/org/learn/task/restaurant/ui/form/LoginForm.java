@@ -68,7 +68,7 @@ public class LoginForm extends JFrame {
                 Configuration.getInstance().getBundleProperty(StringConstant.BUNDLE_LABEL_BUTTON_SIGN_IN),
                 event -> {
                     User user = UserDao.getUserByLogin(loginField.getText());
-                    if (user != null && user.getPassword().equals(new String(passwordField.getPassword()))) {
+                    if (user != null && user.getActive() && user.getPassword().equals(new String(passwordField.getPassword()))) {
                         MainForm.getInstance().setUser(user);
                         MainForm.getInstance().setVisible(true);
                         LoginForm.this.setVisible(false);
